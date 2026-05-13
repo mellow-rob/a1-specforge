@@ -11,6 +11,8 @@ Ein eigenes SDD-Toolkit — ähnlich wie [spec-kit](https://github.com/github/sp
 | `a1-new-feature` | 6-Phasen Feature-Pipeline: Discover → Specify → Clarify → Plan → Implement → Verify |
 | `a1-fix` | 4-Phasen Bug-Pipeline: Report → Diagnose → Fix → Verify |
 | `a1-analyze` | 5-Phasen Projekt-Analyse: Scope → Discover → Analyze → Synthesize → Report |
+| `a1-check` | Spec ↔ Wave-Plan Konsistenz-Gate (deterministisch, kein LLM) |
+| `a1-constitution` | 4-Phasen Constitution-Pipeline: Discover → Draft → Review → Write (per-Projekt Behavioral Rules + 4-Layer Override-Precedence) |
 | `_shared/a1-tools.cjs` | CLI-Helper für alle Pipelines (Frontmatter-State, Phase-Transitions) |
 
 ## Installation
