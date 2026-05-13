@@ -16,10 +16,10 @@ Max 2 clarifying questions, one per turn, **in German**.
 If the user named a project, derive the slug:
 - "Niimo" → `niimo`
 - "n3ural-platform" / "Plattform" → `n3ural-platform`
-- "n3ural.a1" / "a1" / "a1-skills" → ask for explicit slug, both exist
+- "n3ural.a1" / "a1" / "a1-specforge" → ask for explicit slug, both exist
 
 If unclear, ask **in German**:
-> "Welches Projekt soll analysiert werden? (slug, z.B. `niimo`, `n3ural-platform`, `a1-skills`)"
+> "Welches Projekt soll analysiert werden? (slug, z.B. `niimo`, `n3ural-platform`, `a1-specforge`)"
 
 ## Step 2 — Determine focus
 
@@ -42,7 +42,7 @@ The default mapping for known projects (verify via Bash before using):
 | `niimo` | `/Users/rob/code/niimo` |
 | `n3ural-platform` | `/Users/rob/code/n3ural-platform` |
 | `n3ural.a1` | `/Users/rob/code/n3ural.a1_gsd` |
-| `a1-skills` | `/Users/rob/code/a1-skills` |
+| `a1-specforge` | `/Users/rob/code/a1-specforge` |
 
 Verify the path exists:
 ```bash

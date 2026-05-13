@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install a1-skills: creates symlinks from ~/.claude/skills/ to this repo.
+# Install a1-specforge: creates symlinks from ~/.claude/skills/ to this repo.
 # Run once per machine: ./bin/install.sh
 
 set -euo pipefail
@@ -7,7 +7,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SKILLS_DIR="$HOME/.claude/skills"
 
-echo "→ Installing a1-skills from $REPO_DIR"
+echo "→ Installing a1-specforge from $REPO_DIR"
 echo "→ Target: $SKILLS_DIR"
 echo ""
 

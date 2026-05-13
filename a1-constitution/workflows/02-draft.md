@@ -17,7 +17,7 @@ If preconditions missing, route back to `01-discover.md`.
 ## Step 1 — Construct Finn's brief
 
 Read `DISCOVERY_PAYLOAD_PATH`. Also read the constitution template:
-`a1-skills/a1-constitution/templates/constitution-template.md`.
+`a1-specforge/a1-constitution/templates/constitution-template.md`.
 
 Construct the brief by filling `templates/finn-brief-template.md` with:
 - `<PROJECT_SLUG>` — from payload

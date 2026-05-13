@@ -18,7 +18,7 @@ Max 3 user-facing questions, one per turn, **in German**.
 If the user named a project, derive the slug:
 - "Niimo" → `niimo`
 - "n3ural-platform" / "Plattform" → `n3ural-platform`
-- "a1-skills" → `a1-skills`
+- "a1-specforge" → `a1-specforge`
 
 If unclear, ask **in German**:
 > "Für welches Projekt soll die Constitution gebaut werden? (slug, z.B. `niimo`, `n3ural-platform`)"
@@ -32,7 +32,7 @@ Default mapping (verify via Bash before using):
 | `niimo` | `/Users/rob/code/niimo` |
 | `n3ural-platform` | `/Users/rob/code/n3ural-platform` |
 | `n3ural.a1` | `/Users/rob/code/n3ural.a1_gsd` |
-| `a1-skills` | `/Users/rob/code/a1-skills` |
+| `a1-specforge` | `/Users/rob/code/a1-specforge` |
 
 Verify:
 ```bash
