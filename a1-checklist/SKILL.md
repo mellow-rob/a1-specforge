@@ -1,0 +1,64 @@
+---
+name: a1-checklist
+description: >
+  Pre-flight readiness gate for a feature's wave-plan. Runs 8 deterministic
+  structural checks before implementation begins: spec status is clarified,
+  wave-plan exists, every wave has a Suggested agent line, dependencies form
+  a DAG (no cycles), every wave references advanced stories, project CLAUDE.md
+  is present, plans/ directory convention is honored, and plan frontmatter has
+  all required fields. Severities map to BLOCKER (stops the gate), MAJOR (warns),
+  MINOR (info). MUST trigger when the user says: "checkliste für <feature>",
+  "pre-flight check", "ist der plan implementierungs-bereit", "a1-checklist",
+  "prüf die wave-plan-vollständigkeit", "checklist run <slug>", or asks whether
+  a wave-plan is ready to be handed off to executing agents. Distinct from
+  a1-check (which is FR-coverage between spec and plan) — this is the broader
+  readiness gate covering structure, metadata, and project hygiene. Exit
+  semantics: 0=PASS or PASS_WITH_WARNINGS, 1=FAIL (BLOCKER), 2=ERROR (setup).
+  Do not activate for: FR-coverage checks (use a1-check), semantic spec review
+  (delegate to Rene), or generic project audits (use a1-analyze).
+allowed-tools:
+  - Bash
+  - Read
+---
+
+# a1-checklist — Pre-Flight Readiness Gate
+
+Thin Markdown wrapper around the deterministic CLI gate. All logic lives in
+`~/.claude/skills/_shared/a1-tools.cjs checklist run`. The workflow file
+translates the structured result into German user-facing guidance.
+
+## When to use
+
+Activate when the user wants to know whether a feature's wave-plan is
+implementation-ready. The check runs across:
+
+1. The feature's spec (`projects/<slug>/spec/<###>-<feature-slug>.md`)
+2. The feature's wave-plan (`projects/<slug>/plans/<###>-<feature-slug>-wave-plan.md`)
+3. The project root metadata (`projects/<slug>/CLAUDE.md`, `plans/` layout)
+
+## When NOT to use
+
+- FR-coverage between spec and plan → `a1-check`
+- Semantic review of a spec's content → `rene-requirement-engineer`
+- Cross-cutting project audit → `a1-analyze`
+- After implementation, retrospective quality check → `tobi-the-checker`
+
+## Hand-off
+
+- **PASS** → user proceeds to implementation
+- **PASS_WITH_WARNINGS** → user can proceed but warnings are listed for awareness
+- **FAIL (BLOCKER)** → workflow suggests fix-paths (re-clarify spec, re-plan,
+  or fix the dep cycle), then stops
+- **ERROR** → workflow asks user to fix setup (missing files / bad frontmatter)
+
+## Hard rules
+
+- This skill is read-only. It never edits spec, plan, or CLAUDE.md files.
+- The skill never gates on semantic content — only structural and metadata
+  invariants. Story-level review belongs to humans (or Rene).
+- All check logic is in `_shared/a1-tools.cjs checklist run` — keep this skill
+  thin. If you find yourself reimplementing a check here, move it to the CLI.
+
+## Workflows
+
+- `workflows/01-run.md` — Run the checklist and interpret the result.
