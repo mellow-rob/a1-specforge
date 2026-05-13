@@ -45,8 +45,15 @@ delegate directly to the relevant agent (Rene / Vincente / code agents) and skip
 | 2 | Specify | `workflows/02-specify.md` | Sonnet | draft |
 | 3 | Clarify | `workflows/03-clarify.md` | **Opus 4.7** | clarified |
 | 4 | Plan | `workflows/04-plan.md` | **Opus 4.7** | planned |
+| 4.5 | Consistency Gate | `workflows/04.5-consistency-gate.md` | Sonnet (CLI only) | planned (PASS) / awaiting-consistency-fix (FAIL) |
 | 5 | Implement | `workflows/05-implement.md` | Sonnet | implementing → done |
 | 6 | Verify | `workflows/06-verify.md` | Sonnet | done (or implementing if failures) |
+
+> **Consistency Gate (Phase 4.5)** is a deterministic CLI gate (no LLM) that
+> verifies the wave-plan structurally covers the spec (bijective FR coverage,
+> frontmatter link, no phantom FRs). It is a **hard gate**: Phase 5 does not
+> start on FAIL. On FAIL the spec status moves to `awaiting-consistency-fix`
+> and re-invocation routes back to Phase 4.5 automatically.
 
 > **Clarify (Phase 3)** läuft mit **Opus 4.7** und enthält einen proaktiven Scope-Scan sowie
 > — bei Frontend-Features — **UX Mockups von Uwe**: mindestens 2–3 Varianten pro Screen,
@@ -67,7 +74,9 @@ recycled.
    - `discovering` → Phase 1 (continue interview) or Phase 2 (if Discover complete)
    - `draft` → Phase 3 (Clarify) when `[NEEDS CLARIFICATION]` markers exist, otherwise Phase 4
    - `clarified` → Phase 4 (Plan)
-   - `planned` → Phase 5 (Implement)
+   - `planned` → **Phase 4.5 (Consistency Gate)** — must PASS before Phase 5
+   - `awaiting-consistency-fix` → Phase 4.5 (re-run gate after user fix), or the
+     phase the user chose for the fix path (Phase 3 / Phase 4 / targeted edit)
    - `implementing` → Phase 5 (next wave) or Phase 6 (Verify) when waves complete
    - `done` → no work; ask user if they want a re-verify or a new feature
    - `cancelled` → no work; confirm and stop

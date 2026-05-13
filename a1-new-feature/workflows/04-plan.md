@@ -107,21 +107,25 @@ node ~/.claude/skills/_shared/a1-tools.cjs spec update-status \
 
 Helper sets `wave_plan_path` and appends `phase: plan, completed: <iso>` to `phase_history`.
 
-## Step 4 — Sanity check
+## Step 4 — Sanity check (structural)
 
-Read the wave-plan. Verify:
+The structural FR↔Wave consistency check has been moved into its own gate
+(Phase 4.5). You no longer need to grep FR counts here. Only verify the
+human-readable bits that the gate does **not** cover:
 
-- Every FR from the spec appears in exactly one Wave (`grep -c "FR-"` on the plan should
-  equal the FR count in the spec; if not, ask Vincente to reconcile).
 - Every Wave has `Suggested agent(s)`.
 - Dependencies form a DAG (no cycles, no Wave that depends on a later Wave).
 
-## Hand-off to Phase 5
+If either fails, ask Vincente to revise before handing off.
+
+## Hand-off to Phase 4.5 (Consistency Gate)
 
 Tell the user (German):
 
-> "Wave-Plan steht: N Waves, vorgeschlagene Agents pro Wave sind drin. Soll ich Phase 5
-> (Implement) starten? Wir gehen Wave für Wave durch — du bestätigst den Agent vor jedem
-> Dispatch."
+> "Wave-Plan steht: N Waves, vorgeschlagene Agents pro Wave sind drin. Ich
+> lasse jetzt das Konsistenz-Gate gegen die Spec laufen — das ist
+> deterministisch und dauert keine Sekunde."
 
-On yes: load `workflows/05-implement.md`.
+Then load `workflows/04.5-consistency-gate.md`. **Do not skip the gate**, even
+if you are confident the plan is correct. The gate is cheap and prevents
+late-stage drift.
