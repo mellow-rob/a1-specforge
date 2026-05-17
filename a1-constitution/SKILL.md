@@ -16,7 +16,7 @@ description: >
   <projekt>", "generate constitution", "constitution erzeugen", "verhaltensregeln
   für <projekt>", "override-reihenfolge dokumentieren", "a1-constitution",
   "update constitution", or asks to define/update the per-project behavioral
-  rules separate from CLAUDE.md. Phase 2 (Draft) dispatches alex-super-architekt
+  rules separate from CLAUDE.md. Phase 2 (Draft) dispatches a1-alex-architekt
   as the domain authority on CLAUDE.md/constitution separation and CC override
   layers; other phases run in the main thread. Do not activate for: editing
   CLAUDE.md content itself (manual edit or alex directly), generic project
@@ -38,7 +38,7 @@ allowed-tools:
 This skill is a thin orchestrator. The phase logic lives in `workflows/`. The
 shared CLI helper (`~/.claude/skills/_shared/a1-tools.cjs`) handles deterministic
 file ops (vault file init, discovery, status updates, body writes, history
-snapshots, repo mirror, CLAUDE.md cross-link). Alex (alex-super-architekt) does
+snapshots, repo mirror, CLAUDE.md cross-link). Alex (a1-alex-architekt) does
 the drafting in Phase 2.
 
 ## When to use
@@ -119,7 +119,7 @@ Override via env var `A1_VAULT_ROOT` if testing.
 | Phase | Agent | Source |
 |---|---|---|
 | 1 Discover | — (skill itself + CLI) | `_shared/a1-tools.cjs constitution discover` |
-| 2 Draft | **Alex (alex-super-architekt)** | `~/.claude/agents/alex-super-architekt.md` (see `agents/alex-link.md`) |
+| 2 Draft | **Alex (a1-alex-architekt)** | `~/.claude/agents/a1-alex-architekt.md` (see `agents/alex-link.md`) |
 | 3 Review | — (skill itself + user) | — |
 | 4 Write | — (CLI only) | — |
 

@@ -1,5 +1,5 @@
 ---
-name: a1-researcher
+name: a1-rico-researcher
 description: Research context for tasks — project setup, domain knowledge, tech stack, risks. Synthesizes findings into RESEARCH.md. Spawned by a1-plan or a1-roadmap skills.
 tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch
 model: claude-haiku-4-5-20251001

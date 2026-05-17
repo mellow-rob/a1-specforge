@@ -1,6 +1,6 @@
 # Phase 2: Map
 
-Spawn `a1-mapper` to map the codebase structure relevant to this phase.
+Spawn `a1-marco-mapper` to map the codebase structure relevant to this phase.
 
 ## Prompt template
 
@@ -22,4 +22,4 @@ Map phase is done when `MAP.md` exists at the output path.
 
 Present to user: "Codebase mapped. Structure understood."
 
-Note: If this is a new/empty project, MAP.md will be minimal — that's fine, a1-planner handles it.
+Note: If this is a new/empty project, MAP.md will be minimal — that's fine, a1-pablo-planner handles it.

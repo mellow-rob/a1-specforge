@@ -90,12 +90,12 @@ Extracted skill set from `~/.claude/skills/` into this repo. Symlinks set. Deplo
 
 ### Shipped
 
-- **`a1-plan`** — Research → Map → Plan → Audit pipeline. 4 parallel sub-agents: a1-researcher, a1-mapper, a1-planner, a1-auditor.
-- **`a1-execute`** — Wave-by-wave execution with a1-executor + a1-verifier. Inline observations written to `.a1/phases/<name>/observations.jsonl`.
+- **`a1-plan`** — Research → Map → Plan → Audit pipeline. 4 parallel sub-agents: a1-rico-researcher, a1-marco-mapper, a1-pablo-planner, a1-adam-auditor.
+- **`a1-execute`** — Wave-by-wave execution with a1-erik-executor + a1-victor-verifier. Inline observations written to `.a1/phases/<name>/observations.jsonl`.
 - **`a1-progress`** — Project status check across all active phases.
 - **`a1-roadmap`** — New project / milestone planning.
 - **`a1-evolve`** — Self-optimization engine: reads `_learning.md` files + Obsidian Vault learning store, clusters patterns (threshold: 3+ occurrences), proposes diffs for SKILL.md and agent files.
-- **6 framework agents** — a1-researcher, a1-planner, a1-executor, a1-verifier, a1-mapper, a1-auditor.
+- **6 framework agents** — a1-rico-researcher, a1-pablo-planner, a1-erik-executor, a1-victor-verifier, a1-marco-mapper, a1-adam-auditor.
 
 ### Success criteria
 

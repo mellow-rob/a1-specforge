@@ -74,9 +74,9 @@ Map each failed BLOCKER to a fix-path suggestion:
 
 | Failed Check | Suggestion |
 |---|---|
-| `spec_status_clarified` | "The spec is not yet in status `clarified`. Should I trigger `rene-requirement-engineer` to clarify it?" |
-| `wave_plan_exists` | "There is no wave plan under `projects/<slug>/plans/`. Should I trigger `vincente-vibe-optimizer` to create the plan — or start `a1-new-feature` Phase 4?" |
-| `wave_dependencies_dag` | "The wave dependencies contain a cycle. This must be resolved manually — would you like me to trigger `vincente-vibe-optimizer` for a plan revision?" |
+| `spec_status_clarified` | "The spec is not yet in status `clarified`. Should I trigger `a1-rene-requirement-engineer` to clarify it?" |
+| `wave_plan_exists` | "There is no wave plan under `projects/<slug>/plans/`. Should I trigger `a1-vincente-vibe-optimizer` to create the plan — or start `a1-new-feature` Phase 4?" |
+| `wave_dependencies_dag` | "The wave dependencies contain a cycle. This must be resolved manually — would you like me to trigger `a1-vincente-vibe-optimizer` for a plan revision?" |
 
 Then stop. Do not auto-trigger the suggested agent — wait for user consent.
 

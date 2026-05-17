@@ -1,5 +1,5 @@
 ---
-name: rene-requirement-engineer
+name: a1-rene-requirement-engineer
 description: "Transforms vague ideas into structured backlogs — epics, features, user stories with acceptance criteria."
 model: haiku
 color: blue

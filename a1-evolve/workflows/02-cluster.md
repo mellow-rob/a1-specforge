@@ -19,15 +19,15 @@ For each pattern cluster, identify which skill/agent file is responsible:
 
 | Pattern | Root cause | File to fix |
 |---|---|---|
-| `missing_wiring` | Planner doesn't include wiring as must-have | `agents/a1-planner.md` |
-| `wiring_gap` | Planner misses "wire to router" task | `agents/a1-planner.md` |
-| `wave_ordering` | Planner puts dependent tasks in same wave | `agents/a1-planner.md` |
-| `vague_action` | Plan task actions aren't specific enough | `agents/a1-planner.md` |
-| `missing_migration` | Researcher doesn't check for schema changes | `agents/a1-researcher.md` |
-| `env_var_undocumented` | Planner/executor doesn't add env var doc task | `agents/a1-executor.md` |
-| `research_stale` | Researcher uses cached/old library knowledge | `agents/a1-researcher.md` |
-| `test_gap` | Planner doesn't include test tasks | `agents/a1-planner.md` |
-| `type_error_cascade` | Wave 1 type changes break Wave 2 | `agents/a1-planner.md` (wave design) |
+| `missing_wiring` | Planner doesn't include wiring as must-have | `agents/a1-pablo-planner.md` |
+| `wiring_gap` | Planner misses "wire to router" task | `agents/a1-pablo-planner.md` |
+| `wave_ordering` | Planner puts dependent tasks in same wave | `agents/a1-pablo-planner.md` |
+| `vague_action` | Plan task actions aren't specific enough | `agents/a1-pablo-planner.md` |
+| `missing_migration` | Researcher doesn't check for schema changes | `agents/a1-rico-researcher.md` |
+| `env_var_undocumented` | Planner/executor doesn't add env var doc task | `agents/a1-erik-executor.md` |
+| `research_stale` | Researcher uses cached/old library knowledge | `agents/a1-rico-researcher.md` |
+| `test_gap` | Planner doesn't include test tasks | `agents/a1-pablo-planner.md` |
+| `type_error_cascade` | Wave 1 type changes break Wave 2 | `agents/a1-pablo-planner.md` (wave design) |
 
 ### 2c. Score by impact
 
@@ -46,17 +46,17 @@ Pattern Analysis:
 
 🔴 missing_wiring (impact: 24)
    Occurrences: 8 | Avg severity: major
-   Affected: a1-planner.md
+   Affected: a1-pablo-planner.md
    Sample: "Router wiring not in plan — had to add manually"
    
 🟡 wave_ordering (impact: 9)
    Occurrences: 3 | Avg severity: major
-   Affected: a1-planner.md
+   Affected: a1-pablo-planner.md
    Sample: "Wave 2 task depended on Wave 2 output from different task"
 
 🟢 missing_import (impact: 3)
    Occurrences: 3 | Avg severity: minor
-   Affected: a1-executor.md (handling ok, just noting)
+   Affected: a1-erik-executor.md (handling ok, just noting)
    → Below threshold for change (minor severity, executor handles it)
 ```
 

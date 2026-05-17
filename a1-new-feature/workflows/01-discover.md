@@ -3,7 +3,7 @@
 **Goal:** Capture the raw feature idea via a structured interview. Produce a `discovering`-status
 spec file with bullet-point answers to ten mandatory topics. No formal spec yet.
 
-**Sub-agent:** Rene (`~/.claude/agents/rene-requirement-engineer.md`).
+**Sub-agent:** Rene (`~/.claude/agents/a1-rene-requirement-engineer.md`).
 
 **Status transition:** (none yet) → `discovering`.
 
@@ -35,7 +35,7 @@ Write to `projects/<project-slug>/spec/<###>-<feature-slug>.md` (relative to vau
 
 ## Step 3 — Spawn Rene with the Discovery brief
 
-Use the Task tool to spawn the `rene-requirement-engineer` agent with this brief:
+Use the Task tool to spawn the `a1-rene-requirement-engineer` agent with this brief:
 
 > You are Rene conducting the discovery for a new feature idea. Your task: run a
 > structured interview, **one question per turn**. You must cover the following

@@ -6,7 +6,7 @@ All four sections below MUST be present in every dispatch.
 ## Brief structure (fill these four sections)
 
 ```
-You are Alex (alex-super-architekt). Task: Draft the body Markdown of a
+You are Alex (a1-alex-architekt). Task: Draft the body Markdown of a
 project-specific `constitution.md`. You are working in the `a1-constitution`
 skill, Phase 2 (Draft).
 

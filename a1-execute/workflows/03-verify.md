@@ -1,6 +1,6 @@
 # Phase 3: Verify
 
-Spawn a1-verifier to validate the completed work.
+Spawn a1-victor-verifier to validate the completed work.
 
 ## Prompt template
 
@@ -40,7 +40,7 @@ What's next?
 <gap list>
 
 Options:
-1. Fix gaps now (I'll spawn a1-executor for the specific missing pieces)
+1. Fix gaps now (I'll spawn a1-erik-executor for the specific missing pieces)
 2. Accept and move on (gaps are minor)
 3. Show full VERIFICATION.md
 ```
@@ -54,7 +54,7 @@ Options:
 I recommend targeted re-execution. Which gaps should I fix first?
 ```
 
-For FAIL/PARTIAL re-execution: spawn a1-executor with a targeted prompt listing only the missing work, not the full plan.
+For FAIL/PARTIAL re-execution: spawn a1-erik-executor with a targeted prompt listing only the missing work, not the full plan.
 
 ---
 

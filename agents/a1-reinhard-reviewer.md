@@ -1,5 +1,5 @@
 ---
-name: reinhard
+name: a1-reinhard-reviewer
 description: "Senior Code Reviewer — identifies bugs, redundancies, optimization opportunities. Enforces Skills-First/OpenSpace. Before PRs and deploys."
 model: opus
 color: red
@@ -167,7 +167,7 @@ For AI/agent code, prompts, skills, agent definitions:
 |---|---|
 | Larger refactor (> 50 lines, multiple files) | **walter** or mobile dev agent |
 | Missing tests | test-writer agent |
-| Agent/Prompt/Skill architecture refactor | **aik-senior-ai-engineer** |
+| Agent/Prompt/Skill architecture refactor | **a1-aik-ai-engineer** |
 | Infrastructure/deploy findings | **dirk-devops-engineer** |
 
 Delegation is **suggestion, not auto-trigger**. The user decides.

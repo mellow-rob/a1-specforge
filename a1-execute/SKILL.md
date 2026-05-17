@@ -18,7 +18,7 @@ allowed-tools:
 
 # a1-execute — Phase Execution Pipeline
 
-Thin orchestrator. Wave logic runs via a1-executor. Verification via a1-verifier.
+Thin orchestrator. Wave logic runs via a1-erik-executor. Verification via a1-victor-verifier.
 
 ## When to use
 
@@ -32,8 +32,8 @@ If no plan exists, route the user to `a1-plan` first.
 | # | Phase | Workflow | Agent | Trigger |
 |---|---|---|---|---|
 | 1 | Load | `workflows/01-load.md` | — (orchestrator) | Always |
-| 2 | Execute | `workflows/02-execute.md` | a1-executor (per wave) | Per wave |
-| 3 | Verify | `workflows/03-verify.md` | a1-verifier | After all waves |
+| 2 | Execute | `workflows/02-execute.md` | a1-erik-executor (per wave) | Per wave |
+| 3 | Verify | `workflows/03-verify.md` | a1-victor-verifier | After all waves |
 
 ## Checkpoint protocol
 
@@ -58,14 +58,14 @@ This prevents runaway execution — the user stays in control wave by wave.
 
 1. Ask for: project path + phase name (or detect from `.a1/phases/`)
 2. Read PLAN.md — confirm wave count and goal with user
-3. Execute waves one at a time via a1-executor
+3. Execute waves one at a time via a1-erik-executor
 4. Checkpoint after each wave — wait for user confirmation
-5. After all waves: run a1-verifier
+5. After all waves: run a1-victor-verifier
 6. If PARTIAL/FAIL: show gaps, ask if user wants targeted re-execution
 
 ## Hard rules
 
 - Never skip the checkpoint between waves
 - Always show the diff summary after each wave (`git log --oneline -5`)
-- If a wave is BLOCKED (a1-executor reports blocked tasks), surface to user before continuing
+- If a wave is BLOCKED (a1-erik-executor reports blocked tasks), surface to user before continuing
 - Never re-execute already-committed tasks — check STATUS.md first

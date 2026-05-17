@@ -36,8 +36,8 @@ Update `patterns.md`:
 
 Format for new pattern rows:
 ```markdown
-| missing_wiring | 8 | HIGH | agents/a1-planner.md | ✅ applied 2026-05-17 |
-| wave_ordering | 3 | MED | agents/a1-planner.md | ✅ applied 2026-05-17 |
+| missing_wiring | 8 | HIGH | agents/a1-pablo-planner.md | ✅ applied 2026-05-17 |
+| wave_ordering | 3 | MED | agents/a1-pablo-planner.md | ✅ applied 2026-05-17 |
 | vague_action | 2 | LOW | — | 👀 monitoring |
 ```
 
@@ -59,8 +59,8 @@ git -C ~/code/a1-skills add agents/ */SKILL.md */workflows/
 git -C ~/code/a1-skills commit -m "evolve: apply <N> skill improvements from <M> observations
 
 Patterns addressed:
-- missing_wiring (8 occurrences) → a1-planner.md
-- wave_ordering (3 occurrences) → a1-planner.md
+- missing_wiring (8 occurrences) → a1-pablo-planner.md
+- wave_ordering (3 occurrences) → a1-pablo-planner.md
 "
 ```
 
@@ -73,7 +73,7 @@ Skipped: <N>
 Monitoring: <N> patterns (below threshold)
 
 Skills improved:
-- agents/a1-planner.md (+2 sections)
+- agents/a1-pablo-planner.md (+2 sections)
 
 Committed: feat(<hash>)
 

@@ -1,5 +1,5 @@
 ---
-name: a1-verifier
+name: a1-victor-verifier
 description: Goal-backward verification after execution. Verifies the codebase delivers what the spec promised — not just that tasks completed. Produces VERIFICATION.md. Spawned by a1-execute skill.
 tools: Read, Write, Bash, Grep, Glob
 color: green

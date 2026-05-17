@@ -7,7 +7,7 @@ This is **not** an agent definition. It is a pointer.
 Ludwig's identity is defined in:
 
 ```
-~/.claude/agents/ludwig-legal.md
+~/.claude/agents/a1-ludwig-legal.md
 ```
 
 ## Usage in a1-analyze

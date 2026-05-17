@@ -69,7 +69,7 @@ If the user wants a significant rework, write a new tmp file with their feedback
 ```
 
 Construct a follow-up brief and re-dispatch Alex with subagent_type
-`alex-super-architekt`, including the previous body and the user's feedback.
+`a1-alex-architekt`, including the previous body and the user's feedback.
 Alex returns a revised body. Write it back via `constitution set-body`,
 status STAYS at `drafted`, and we loop back to Step 1 (user reviews
 the new draft).

@@ -39,9 +39,9 @@ implementation-ready. The check runs across:
 ## When NOT to use
 
 - FR-coverage between spec and plan → `a1-check`
-- Semantic review of a spec's content → `rene-requirement-engineer`
+- Semantic review of a spec's content → `a1-rene-requirement-engineer`
 - Cross-cutting project audit → `a1-analyze`
-- After implementation, retrospective quality check → `tobi-the-checker`
+- After implementation, retrospective quality check → `a1-tobi-tester`
 
 ## Hand-off
 

@@ -3,7 +3,7 @@
 This is **not** a new agent definition. The authoritative agent file lives at:
 
 ```
-~/.claude/agents/rene-requirement-engineer.md
+~/.claude/agents/a1-rene-requirement-engineer.md
 ```
 
 Rene wird in Phasen 1–3 als Sub-Agent gespawnt. Identity, Hard Rules, Tone of Voice und
@@ -12,7 +12,7 @@ den **Brief** (Auftrag, Inputs, erwartetes Output-Format).
 
 ## Spawn-Pattern (innerhalb der Workflows)
 
-Use the `Task` tool with `subagent_type: rene-requirement-engineer` and pass the phase brief
+Use the `Task` tool with `subagent_type: a1-rene-requirement-engineer` and pass the phase brief
 verbatim. The phase briefs live in:
 
 - Phase 1 — `workflows/01-discover.md`, Step 3

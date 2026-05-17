@@ -4,23 +4,23 @@ description: >
   End-of-lifecycle skill that turns a finished feature branch into a
   reviewed Pull Request. Picks up worktrees in `status: handoff` from the
   a1-worktree registry (`~/.a1-worktrees-registry.json`), spawns the
-  `reinhard` sub-agent for a structured code review, prepares a PR-Draft
-  (title + body following conventional commits + reinhard findings) and,
+  `a1-reinhard-reviewer` sub-agent for a structured code review, prepares a PR-Draft
+  (title + body following conventional commits + a1-reinhard-reviewer findings) and,
   after user confirmation, opens the PR via `gh pr create`. Four phases:
-  Detect (scan registry) → Review (reinhard, findings as JSON) → Draft
+  Detect (scan registry) → Review (a1-reinhard-reviewer, findings as JSON) → Draft
   (build PR title + body) → Submit (gh + registry update). BLOCKER
   findings halt the flow before submit; MAJOR findings are surfaced in
   the PR body under "Known Issues"; MINOR findings stay internal as
   inline review comment suggestions. MUST trigger when the user says:
   "pr review für <slug>", "a1-pr-review", "review meinen worktree", "pr
-  draften", "reinhard auf <slug> ansetzen", "feature ist fertig, PR
+  draften", "a1-reinhard-reviewer auf <slug> ansetzen", "feature ist fertig, PR
   aufmachen", "worktree zur review", "code review + PR", or any request
   to wrap up a handoff-state worktree into a Pull Request. Distinct from
   `a1-worktree` (manages the working copy lifecycle) and `a1-check` /
   `a1-checklist` (pre-implementation gates). This skill runs strictly
   AFTER implementation, on a branch that already contains commits. Do
   not activate for: raw `gh pr create` requests without review, generic
-  code-review-only tasks (call `reinhard` directly), worktrees still in
+  code-review-only tasks (call `a1-reinhard-reviewer` directly), worktrees still in
   `active` status (must exit to `handoff` first via a1-worktree).
 allowed-tools:
   - Read
@@ -48,7 +48,7 @@ a1-new-feature → a1-worktree (enter/exit handoff) → a1-pr-review
 ## When NOT to use
 
 - Worktrees still `active` — must exit to `handoff` via a1-worktree first.
-- Generic code-review without PR intent — call `reinhard` directly.
+- Generic code-review without PR intent — call `a1-reinhard-reviewer` directly.
 - Hot-fix branches that already have an open PR.
 - Re-runs after `pr-open` — registry status is terminal for this skill.
 
@@ -92,7 +92,7 @@ node ~/.claude/skills/_shared/a1-tools.cjs pr mark-pr-open <slug> <pr-url>
 
 ## Agent integration
 
-Phase 2 spawns the global `reinhard` agent via the `Task` tool. The
+Phase 2 spawns the global `a1-reinhard-reviewer` agent via the `Task` tool. The
 brief is structured (worktree path, branch, diff range, scope hint from
 the last `phase_history` entry). Reinhard returns findings as inline
 JSON which the workflow then writes to `findings.json` via the CLI.

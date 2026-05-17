@@ -11,7 +11,7 @@ description: >
   tasks have code", "verify work was done", or when an upstream verifier
   (e.g. phase-verifier) asks for phantom detection as part of phase
   verification. Do NOT activate for: full goal verification (phase-verifier
-  owns that), code review (reinhard), or anti-pattern scans of source files
+  owns that), code review (a1-reinhard-reviewer), or anti-pattern scans of source files
   (a1-analyze / phase-verifier Step 7).
 allowed-tools:
   - Bash

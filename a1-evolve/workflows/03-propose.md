@@ -12,15 +12,15 @@ For each pattern above threshold, produce:
 Pattern: missing_wiring
 Impact: 24 (8 occurrences, avg severity: major)
 Confidence: HIGH (5+ occurrences)
-File: agents/a1-planner.md
+File: agents/a1-pablo-planner.md
 
 Problem:
-a1-planner consistently misses "wire to router/index" as an explicit task when
+a1-pablo-planner consistently misses "wire to router/index" as an explicit task when
 creating API phases. Executor has to add it as an unplanned deviation every time.
 
 Proposed change (diff):
---- agents/a1-planner.md
-+++ agents/a1-planner.md
+--- agents/a1-pablo-planner.md
++++ agents/a1-pablo-planner.md
 @@ ## Goal-backward decomposition @@
  3. **What must be WIRED** for those artifacts to function? (integrations, imports, configs)
 +
@@ -51,8 +51,8 @@ Present summary:
 
 <N> improvements proposed based on <M> observations:
 
-1. [HIGH] missing_wiring → a1-planner.md (8 occurrences)
-2. [MED]  wave_ordering  → a1-planner.md (3 occurrences)
+1. [HIGH] missing_wiring → a1-pablo-planner.md (8 occurrences)
+2. [MED]  wave_ordering  → a1-pablo-planner.md (3 occurrences)
 
 Proceed to review? [y to see diffs / n to cancel]
 ```

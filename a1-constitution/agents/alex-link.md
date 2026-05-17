@@ -1,11 +1,11 @@
-# Alex — alex-super-architekt (Sub-Agent Reference)
+# Alex — a1-alex-architekt (Sub-Agent Reference)
 
 This is **not** an agent definition. It is a pointer.
 
 ## Source of truth
 
 ```
-~/.claude/agents/alex-super-architekt.md
+~/.claude/agents/a1-alex-architekt.md
 ```
 
 ## Usage in a1-constitution

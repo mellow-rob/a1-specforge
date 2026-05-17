@@ -1,5 +1,5 @@
 ---
-name: a1-planner
+name: a1-pablo-planner
 description: Creates executable PLAN.md files from specs and research. Wave-based task decomposition with inline goal-backward verification. Spawned by a1-plan skill.
 tools: Read, Write, Bash, Glob, Grep
 color: green

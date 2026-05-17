@@ -15,7 +15,7 @@ context once, not per-target).
 For each repo group, read
 `~/.claude/skills/a1-reconcile/templates/agent-probe-brief.md` and substitute:
 
-- `<AGENT_NAME>` — `codebase-mapper` for the structural probe; add `Alex`
+- `<AGENT_NAME>` — `a1-marco-mapper` for the structural probe; add `Alex`
   as a second parallel dispatch if any target has `kind: function` or
   `kind: endpoint` AND the project has > 5 such targets (architecture-level
   scrutiny).
@@ -34,14 +34,14 @@ single turn.
 
 ```
 Task(subagent_type="general-purpose",
-     description="codebase-mapper drift probe <slug>",
+     description="a1-marco-mapper drift probe <slug>",
      prompt="<the full brief>")
 Task(subagent_type="general-purpose",
      description="Alex architecture drift probe <slug>",
      prompt="<the full brief>")
 ```
 
-For agents with a dedicated `subagent_type` (e.g. `codebase-mapper`), use
+For agents with a dedicated `subagent_type` (e.g. `a1-marco-mapper`), use
 that type. Otherwise `general-purpose` with the agent persona on line 1 of
 the brief.
 
@@ -107,16 +107,16 @@ to the frontmatter `drifts[]`.
 
 ## Step 6b — DIVERGED follow-up: semantic probe (if needed)
 
-After collecting codebase-mapper results, check if any drift has
+After collecting a1-marco-mapper results, check if any drift has
 `class: DIVERGED`. If yes AND Alex was NOT already dispatched in Step 3:
 
 Dispatch Alex as a focused DIVERGED semantic probe:
 
 ```
-Task(subagent_type="alex-super-architekt",
+Task(subagent_type="a1-alex-architekt",
      description="Alex DIVERGED semantic probe <slug>",
      prompt="IMPORTANT: Return ONLY a JSON array. No prose.\n\n
-You are Alex (alex-super-architekt). Task: semantic analysis of DIVERGED spec findings.\n\n
+You are Alex (a1-alex-architekt). Task: semantic analysis of DIVERGED spec findings.\n\n
 Project: <PROJECT_SLUG>, repo: <REPO_PATH>.\n\n
 The following artifacts were classified as DIVERGED by a structural probe
 (they exist in code but path, signature, or boundary differs from spec).
@@ -129,7 +129,7 @@ Return [] if all DIVERGED findings hold up without refinement.")
 ```
 
 Merge Alex's DIVERGED results into the drift list: Alex's findings override
-codebase-mapper's DIVERGED entries for the same artifact (Alex has deeper
+a1-marco-mapper's DIVERGED entries for the same artifact (Alex has deeper
 semantic context). Apply Step 4 validation rules (JSON check, re-ask once).
 
 If Alex was already dispatched in Step 3 (> 5 function/endpoint targets):
@@ -144,7 +144,7 @@ node ~/.claude/skills/_shared/a1-tools.cjs reconcile update-status \
   "<drift-path>" probed \
   --phase-data '{
     "agents_dispatched": [
-      {"name": "codebase-mapper", "completed_at": "<ISO>", "drift_count": <n>},
+      {"name": "a1-marco-mapper", "completed_at": "<ISO>", "drift_count": <n>},
       {"name": "Alex", "completed_at": "<ISO>", "drift_count": <n>}
     ],
     "in_sync_count": <n>
@@ -176,7 +176,7 @@ If no: stop. Status `probed` persists.
 - **Repo path missing on disk:** mark every target in that repo as
   `class: MISSING` with `description: "repo not accessible: <reason>"`. The
   user decides whether to fix the path and re-run.
-- **Conflict between agents:** if `codebase-mapper` says IN_SYNC and Alex
+- **Conflict between agents:** if `a1-marco-mapper` says IN_SYNC and Alex
   says DIVERGED for the same artifact, keep both findings; Phase 4 dedups by
   picking the higher-severity class (DIVERGED > MISSING > EXTRA > STALE >
   IN_SYNC).

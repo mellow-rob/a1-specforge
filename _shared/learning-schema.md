@@ -7,10 +7,10 @@ Shared format for all observation and learning data across the a1 skill set.
 One JSON object per line. Written to `.a1/phases/<name>/observations.jsonl`.
 
 ```jsonl
-{"ts":"2026-05-17T15:00:00Z","agent":"a1-executor","skill":"a1-execute","phase":"M1-P2-auth","wave":2,"type":"deviation","severity":"minor","msg":"Had to add missing import in 3 files — not in plan","pattern":"missing_import"}
-{"ts":"...","agent":"a1-executor","skill":"a1-execute","phase":"M1-P2-auth","wave":3,"type":"blocker","severity":"major","msg":"Router wiring not in plan — had to add manually","pattern":"missing_wiring"}
-{"ts":"...","agent":"a1-verifier","skill":"a1-execute","phase":"M1-P2-auth","wave":null,"type":"gap","severity":"major","msg":"SC-2 endpoint existed but not registered in router","pattern":"wiring_gap"}
-{"ts":"...","agent":"a1-planner","skill":"a1-plan","phase":"M1-P2-auth","wave":null,"type":"plan_quality","severity":"minor","msg":"Wave 2 had implicit dependency on Wave 1 output — should have been Wave 3","pattern":"wave_ordering"}
+{"ts":"2026-05-17T15:00:00Z","agent":"a1-erik-executor","skill":"a1-execute","phase":"M1-P2-auth","wave":2,"type":"deviation","severity":"minor","msg":"Had to add missing import in 3 files — not in plan","pattern":"missing_import"}
+{"ts":"...","agent":"a1-erik-executor","skill":"a1-execute","phase":"M1-P2-auth","wave":3,"type":"blocker","severity":"major","msg":"Router wiring not in plan — had to add manually","pattern":"missing_wiring"}
+{"ts":"...","agent":"a1-victor-verifier","skill":"a1-execute","phase":"M1-P2-auth","wave":null,"type":"gap","severity":"major","msg":"SC-2 endpoint existed but not registered in router","pattern":"wiring_gap"}
+{"ts":"...","agent":"a1-pablo-planner","skill":"a1-plan","phase":"M1-P2-auth","wave":null,"type":"plan_quality","severity":"minor","msg":"Wave 2 had implicit dependency on Wave 1 output — should have been Wave 3","pattern":"wave_ordering"}
 ```
 
 ### Observation types
@@ -50,13 +50,13 @@ Append-only. One entry per execution run.
 - [verifier/gap/major] SC-2: endpoint existed but not registered (pattern: wiring_gap)
 
 ### Retro
-✅ a1-researcher caught JWT version mismatch before it caused issues  
+✅ a1-rico-researcher caught JWT version mismatch before it caused issues  
 ✅ Wave 1 ran cleanly — foundation tasks well-scoped  
-⚠️ a1-planner consistently misses router registration as an explicit task  
+⚠️ a1-pablo-planner consistently misses router registration as an explicit task  
 ⚠️ "Done when" on Task 2.3 was too vague — executor interpreted it differently  
 
 ### Suggested improvement
-a1-planner should add "wire to router/index" as a standard Wave 3 task for API phases.
+a1-pablo-planner should add "wire to router/index" as a standard Wave 3 task for API phases.
 ```
 
 ---
@@ -76,7 +76,7 @@ Patterns with 3+ occurrences:
 
 | Pattern | Count | Affected Skills | Status |
 |---|---|---|---|
-| missing_wiring | 8 | a1-plan, a1-execute | → proposed fix in a1-planner.md |
+| missing_wiring | 8 | a1-plan, a1-execute | → proposed fix in a1-pablo-planner.md |
 | wave_ordering | 5 | a1-plan | → applied 2026-05-17 |
 | vague_action | 4 | a1-plan | → pending review |
 | missing_import | 3 | a1-execute | → monitoring |

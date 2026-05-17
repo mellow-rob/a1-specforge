@@ -145,7 +145,7 @@ Tell the user:
 > "Discovery complete. Vault file: `projects/<slug>/constitution/constitution.md`
 >  (status: discovering). Global rules captured: <N>, CLAUDE.md read, interview done.
 >
->  Should I start Phase 2? Alex (alex-super-architekt) will receive the discovery output
+>  Should I start Phase 2? Alex (a1-alex-architekt) will receive the discovery output
 >  and draft the constitution."
 
 If yes: proceed to `02-draft.md`. Do NOT auto-update status — the status moves

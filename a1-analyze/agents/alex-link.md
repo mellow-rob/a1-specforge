@@ -7,7 +7,7 @@ This is **not** an agent definition. It is a pointer.
 Alex's identity is defined in:
 
 ```
-~/.claude/agents/alex-super-architekt.md
+~/.claude/agents/a1-alex-architekt.md
 ```
 
 That file is the single source of truth.

@@ -134,7 +134,7 @@ Do not advance to `done` until all failures are resolved and a re-verify is gree
 
 ## Optional — Tobi audit
 
-If the user wants a deeper audit before declaring done, spawn `tobi-the-checker` with this
+If the user wants a deeper audit before declaring done, spawn `a1-tobi-tester` with this
 brief:
 
 > Tobi, mach einen Final-Audit auf die Spec `<spec-path>` und den Code, der unter dem

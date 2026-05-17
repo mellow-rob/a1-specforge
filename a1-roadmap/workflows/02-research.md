@@ -1,6 +1,6 @@
 # Phase 2: Research
 
-Spawn `a1-researcher` for domain and tech research.
+Spawn `a1-rico-researcher` for domain and tech research.
 
 ## When to run
 

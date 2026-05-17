@@ -7,7 +7,7 @@ This is **not** an agent definition. It is a pointer.
 Falk's identity, hard rules, and behavior are defined in:
 
 ```
-~/.claude/agents/falk-bug-hunter.md
+~/.claude/agents/a1-falk-fault-finder.md
 ```
 
 That file is the single source of truth. Do not copy it. Do not paraphrase it

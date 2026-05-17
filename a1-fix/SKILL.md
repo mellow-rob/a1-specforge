@@ -100,7 +100,7 @@ Override via env var `A1_VAULT_ROOT` if testing.
 
 | Phase | Agent | Source |
 |---|---|---|
-| 1 Report | Falk | `~/.claude/agents/falk-bug-hunter.md` (see `agents/falk-link.md`) |
+| 1 Report | Falk | `~/.claude/agents/a1-falk-fault-finder.md` (see `agents/falk-link.md`) |
 | 2 Diagnose | Falk | same |
 | 3 Fix | Project code agent (Walter / Bernd / Aik / Toni / Felix / Alex) | Read target project's CLAUDE.md → Agent Workflow table. Skill **proposes**; user dispatches. |
 | 4 Verify | The skill itself; optionally Quak for QA-regression when severity ≥ MAJOR | — |

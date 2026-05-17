@@ -19,7 +19,7 @@ allowed-tools:
 
 # a1-roadmap — Project & Milestone Planning
 
-Thin orchestrator. Phase logic in `workflows/`. a1-researcher does domain research.
+Thin orchestrator. Phase logic in `workflows/`. a1-rico-researcher does domain research.
 
 ## When to use
 
@@ -43,7 +43,7 @@ Abbreviated flow: Understand → Structure → Scaffold (skip full research if p
 | # | Phase | Workflow | Agent | Output |
 |---|---|---|---|---|
 | 1 | Discover | `workflows/01-discover.md` | — (conversation) | Vision doc |
-| 2 | Research | `workflows/02-research.md` | a1-researcher | RESEARCH.md |
+| 2 | Research | `workflows/02-research.md` | a1-rico-researcher | RESEARCH.md |
 | 3 | Structure | `workflows/03-structure.md` | — (orchestrator) | Milestone/phase breakdown |
 | 4 | Scaffold | `workflows/04-scaffold.md` | — (orchestrator) | .a1/ structure + roadmap.md |
 

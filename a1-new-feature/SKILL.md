@@ -111,9 +111,9 @@ Override via env var `A1_VAULT_ROOT` if testing.
 
 | Phase | Agent | Source |
 |---|---|---|
-| 1–3 | Rene | `~/.claude/agents/rene-requirement-engineer.md` (see `agents/rene-link.md`) |
-| 3 (UX) | **Uwe** — frontend features only | global `uwe-ux-expert`; uses project design-system skill (see below) |
-| 4 | Vincente | global `vincente-vibe-optimizer` |
+| 1–3 | Rene | `~/.claude/agents/a1-rene-requirement-engineer.md` (see `agents/rene-link.md`) |
+| 3 (UX) | **Uwe** — frontend features only | global `a1-uwe-ux-expert`; uses project design-system skill (see below) |
+| 4 | Vincente | global `a1-vincente-vibe-optimizer` |
 | 5 | Code agents | Agent pool: read from target project's CLAUDE.md → Agent Workflow table. Fallbacks: Walter, Bernd, Aik, Felix, Alex. **User confirms** per wave brief. |
 | 6 | The skill itself (and Tobi, optional) | — |
 

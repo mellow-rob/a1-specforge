@@ -25,7 +25,7 @@ is actually next based on the current status.
 
 ## Step 2 — Spawn Falk for diagnosis
 
-Use the `Task` tool to spawn Falk (`~/.claude/agents/falk-bug-hunter.md`) with this brief:
+Use the `Task` tool to spawn Falk (`~/.claude/agents/a1-falk-fault-finder.md`) with this brief:
 
 > You are Falk in diagnosis mode. Task: derive the most likely root cause from
 > the bug report and back it with evidence. Never fix, never commit, never write
@@ -44,7 +44,7 @@ Use the `Task` tool to spawn Falk (`~/.claude/agents/falk-bug-hunter.md`) with t
 >    - **Root Cause** (one statement of what is actually broken)
 >    - **Evidence** (file:line references, log excerpts, commit hashes)
 >    - **Confidence** (low / medium / high) — explicitly justified
->    - **Recommended code agent** (walter / bernd / aik / toni / felix / alex),
+>    - **Recommended code agent** (a1-walter-web-developer / bernd / aik / toni / felix / alex),
 >      based on the stack of the affected repo
 >    - **Suggested fix approach** (one paragraph, no code)
 >

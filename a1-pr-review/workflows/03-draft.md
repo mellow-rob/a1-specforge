@@ -29,7 +29,7 @@ Use the `gh pr create` HEREDOC structure. Sections in this order:
 ```markdown
 ## Summary
 
-<2-4 bullet points distilled from commit messages and reinhard's summary>
+<2-4 bullet points distilled from commit messages and a1-reinhard-reviewer's summary>
 
 ## Changes
 

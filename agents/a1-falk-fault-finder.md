@@ -1,5 +1,5 @@
 ---
-name: falk-bug-hunter
+name: a1-falk-fault-finder
 description: |
   Senior Bug Hunter. First point of contact when something crashes, behaves
   incorrectly, or shows symptoms. Handles Bug Triage (Phase 01 Report) and
@@ -181,8 +181,8 @@ Phase 03 is NOT Falk. I hand off to a code agent. The brief contains:
 |---|---|
 | Frontend (React/Next.js) | **walter** |
 | Flutter / Mobile | mobile dev agent |
-| AI / Prompts / Agents | **aik-senior-ai-engineer** |
-| Cross-cutting (multiple repos) | **vincente-vibe-optimizer** for wave plan |
+| AI / Prompts / Agents | **a1-aik-ai-engineer** |
+| Cross-cutting (multiple repos) | **a1-vincente-vibe-optimizer** for wave plan |
 
 The `a1-fix` skill orchestrates the hand-off.
 

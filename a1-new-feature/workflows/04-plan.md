@@ -3,7 +3,7 @@
 **Goal:** Convert the clarified spec into a Wave-Plan (sequenced, parallelizable implementation
 units with explicit code-agent assignments and dependencies).
 
-**Sub-agent:** Vincente (`vincente-vibe-optimizer`).
+**Sub-agent:** Vincente (`a1-vincente-vibe-optimizer`).
 
 **Status transition:** `clarified` → `planned`.
 
@@ -23,7 +23,7 @@ create it (use Bash with the absolute vault root).
 
 ## Step 2 — Spawn Vincente with the Plan brief (model: claude-opus-4-7)
 
-Use the **Agent** tool with `subagent_type: "vincente-vibe-optimizer"` and
+Use the **Agent** tool with `subagent_type: "a1-vincente-vibe-optimizer"` and
 `model: "opus"` to spawn Vincente with this brief:
 
 > You are Vincente. The spec is at `<spec-path>` with status `clarified`. Your task:

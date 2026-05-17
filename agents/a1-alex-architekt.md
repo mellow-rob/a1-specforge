@@ -1,5 +1,5 @@
 ---
-name: alex-super-architekt
+name: a1-alex-architekt
 description: "Architectural design, system design, database modeling, API design, infrastructure, ADR writing, scalability planning."
 model: opus
 color: blue

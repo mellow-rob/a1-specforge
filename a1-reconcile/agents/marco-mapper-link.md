@@ -1,9 +1,9 @@
-# codebase-mapper (linked sub-agent)
+# a1-marco-mapper (linked sub-agent)
 
 Used in Phase 3 (Probe) as the primary structural prober. Maps spec-referenced
 artifacts to actual repo state.
 
-Definition source: `~/.claude/agents/gsd-codebase-mapper.md` or an equivalent
+Definition source: `~/.claude/agents/a1-marco-mapper.md` or an equivalent
 codebase exploration agent in your local setup (canonical).
 
 This file is a pointer, not a redefinition. If the agent's behaviour changes,
@@ -11,7 +11,7 @@ update the source — not this file.
 
 ## How a1-reconcile uses it
 
-- Dispatched via `Task` tool with `subagent_type="codebase-mapper"` if
+- Dispatched via `Task` tool with `subagent_type="a1-marco-mapper"` if
   available, else `subagent_type="general-purpose"` with the persona on line
   1 of the probe brief.
 - Brief from `templates/agent-probe-brief.md`.

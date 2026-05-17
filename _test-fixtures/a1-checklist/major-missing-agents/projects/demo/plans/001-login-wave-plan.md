@@ -11,7 +11,7 @@ waves: 2
 
 ## Wave 1: Auth backend
 
-**Suggested agent(s):** walter, backend-bernd
+**Suggested agent(s):** a1-walter-web-developer, backend-bernd
 **Depends on:** none
 **Stories advanced:** FR-001
 

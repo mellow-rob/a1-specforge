@@ -3,7 +3,7 @@
 **Goal:** Resolve every blocking `[NEEDS CLARIFICATION]` marker AND proactively surface hidden
 scope assumptions that would otherwise cause rework during implementation.
 
-**Sub-agent:** Rene (`~/.claude/agents/rene-requirement-engineer.md`).
+**Sub-agent:** Rene (`~/.claude/agents/a1-rene-requirement-engineer.md`).
 **Model: `claude-opus-4-7`** — Clarify is the highest-leverage phase: wrong decisions here
 cascade into multiple fix cycles. Use Opus for deeper reasoning.
 
@@ -39,7 +39,7 @@ spawning Rene, so Rene has a complete list in one pass.
 
 ## Step 2 — Spawn Rene with the Clarify brief (model: claude-opus-4-7)
 
-Use the **Agent** tool with `subagent_type: "rene-requirement-engineer"` and
+Use the **Agent** tool with `subagent_type: "a1-rene-requirement-engineer"` and
 `model: "opus"` to spawn Rene with this brief:
 
 > You are Rene. The spec at `<spec-path>` has N open `[NEEDS CLARIFICATION]` markers —
@@ -98,7 +98,7 @@ Fallback if no design system is specified: `frontend-design`.
 
 ### 2b-3 — Spawn Uwe
 
-Use the **Agent** tool with `subagent_type: "uwe-ux-expert"` and this brief:
+Use the **Agent** tool with `subagent_type: "a1-uwe-ux-expert"` and this brief:
 
 > You are Uwe. We are in Phase 3 (Clarify) of the a1-new-feature flow for the feature
 > `<feature-name>`.

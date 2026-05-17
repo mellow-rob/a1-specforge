@@ -7,7 +7,7 @@ This is **not** an agent definition. It is a pointer.
 Reinhard's identity, hard rules, and behavior are defined in:
 
 ```
-~/.claude/agents/reinhard.md
+~/.claude/agents/a1-reinhard-reviewer.md
 ```
 
 That file is the single source of truth. Do not copy it. Do not paraphrase it

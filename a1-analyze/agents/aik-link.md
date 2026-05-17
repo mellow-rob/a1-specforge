@@ -5,7 +5,7 @@ This is **not** an agent definition. It is a pointer.
 ## Source of truth
 
 ```
-~/.claude/agents/aik-senior-ai-engineer.md
+~/.claude/agents/a1-aik-ai-engineer.md
 ```
 
 ## Usage in a1-analyze

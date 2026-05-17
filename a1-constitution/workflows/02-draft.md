@@ -1,6 +1,6 @@
 # Phase 02 — Draft
 
-Goal: dispatch Alex (alex-super-architekt) to generate the constitution body
+Goal: dispatch Alex (a1-alex-architekt) to generate the constitution body
 from the discovery payload, then write the body atomically into the vault
 file and transition status to `drafted`.
 
@@ -32,7 +32,7 @@ Construct the brief by filling `templates/alex-brief-template.md` with:
 ## Step 2 — Dispatch Alex via the Task tool
 
 Use the `Task` tool with:
-- **subagent_type:** `alex-super-architekt`
+- **subagent_type: `a1-alex-architekt`
 - **description:** "Draft constitution.md body for <slug>"
 - **prompt:** the fully populated brief from Step 1
 

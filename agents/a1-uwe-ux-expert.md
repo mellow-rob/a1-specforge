@@ -1,5 +1,5 @@
 ---
-name: uwe-ux-expert
+name: a1-uwe-ux-expert
 description: "Senior UX Expert — mobile/web interfaces, UX research, Figma designs, design systems, usability, developer handoff."
 model: opus
 color: purple

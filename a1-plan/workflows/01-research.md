@@ -1,6 +1,6 @@
 # Phase 1: Research
 
-Spawn `a1-researcher` to gather context for this phase.
+Spawn `a1-rico-researcher` to gather context for this phase.
 
 ## Prompt template
 

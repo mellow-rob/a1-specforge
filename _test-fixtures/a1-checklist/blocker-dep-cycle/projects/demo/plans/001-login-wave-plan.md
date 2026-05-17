@@ -11,7 +11,7 @@ waves: 2
 
 ## Wave 1: Auth backend
 
-**Suggested agent(s):** walter, backend-bernd
+**Suggested agent(s):** a1-walter-web-developer, backend-bernd
 **Depends on:** Wave 2
 **Stories advanced:** FR-001
 
@@ -19,7 +19,7 @@ Implement the email+password endpoint.
 
 ## Wave 2: Forgot-password flow
 
-**Suggested agent(s):** walter
+**Suggested agent(s):** a1-walter-web-developer
 **Depends on:** Wave 1
 **Stories advanced:** FR-002
 

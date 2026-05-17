@@ -36,7 +36,7 @@ If user says "new report, but related": continue with Step 2 and add
 
 ## Step 2 — Spawn Falk for the triage interview
 
-Use the `Task` tool to spawn Falk (`~/.claude/agents/falk-bug-hunter.md`) with this brief:
+Use the `Task` tool to spawn Falk (`~/.claude/agents/a1-falk-fault-finder.md`) with this brief:
 
 > You are Falk in triage mode. Task: conduct a structured bug triage interview
 > with the user. Required topics, in this order:

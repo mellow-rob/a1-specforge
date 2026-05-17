@@ -31,12 +31,12 @@ The output is a PLAN.md that's ready for `a1-execute`.
 
 | # | Phase | Workflow | Agent | Output |
 |---|---|---|---|---|
-| 1 | Research | `workflows/01-research.md` | a1-researcher | RESEARCH.md |
-| 2 | Map | `workflows/02-map.md` | a1-mapper | MAP.md |
-| 3 | Plan | `workflows/03-plan.md` | a1-planner | PLAN.md |
-| 4 | Audit | `workflows/04-audit.md` | a1-auditor | AUDIT.md |
+| 1 | Research | `workflows/01-research.md` | a1-rico-researcher | RESEARCH.md |
+| 2 | Map | `workflows/02-map.md` | a1-marco-mapper | MAP.md |
+| 3 | Plan | `workflows/03-plan.md` | a1-pablo-planner | PLAN.md |
+| 4 | Audit | `workflows/04-audit.md` | a1-adam-auditor | AUDIT.md |
 
-**Audit loop:** If AUDIT.md verdict is FAIL, route back to Phase 3 (a1-planner in revision mode) with the AUDIT.md findings. Maximum 2 revision cycles.
+**Audit loop:** If AUDIT.md verdict is FAIL, route back to Phase 3 (a1-pablo-planner in revision mode) with the AUDIT.md findings. Maximum 2 revision cycles.
 
 ## Storage
 
@@ -65,6 +65,6 @@ The phase directory is created automatically. Phase names are kebab-case from th
 ## Hard rules
 
 - Never skip phases — research and mapping take minutes and prevent rework
-- Never edit PLAN.md directly — always go through a1-planner
-- If the user provides a spec file, pass its path to a1-researcher and a1-planner
+- Never edit PLAN.md directly — always go through a1-pablo-planner
+- If the user provides a spec file, pass its path to a1-rico-researcher and a1-pablo-planner
 - Present the PLAN.md summary to the user after audit passes — they should confirm before executing

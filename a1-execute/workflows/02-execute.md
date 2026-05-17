@@ -1,12 +1,12 @@
 # Phase 2: Execute Waves
 
-Execute each wave via a1-executor, with checkpoints between waves.
+Execute each wave via a1-erik-executor, with checkpoints between waves.
 
 ## Per-wave loop
 
 For each wave in PLAN.md (skipping already-completed waves per STATUS.md):
 
-### 2a. Spawn a1-executor
+### 2a. Spawn a1-erik-executor
 
 ```
 Execute Wave <N> of the plan.
@@ -25,7 +25,7 @@ Execute Wave <N> of the plan.
 
 ### 2b. Process wave result
 
-After a1-executor returns:
+After a1-erik-executor returns:
 
 **If COMPLETE:**
 ```bash

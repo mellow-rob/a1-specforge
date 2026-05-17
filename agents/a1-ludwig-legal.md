@@ -1,5 +1,5 @@
 ---
-name: ludwig-legal
+name: a1-ludwig-legal
 description: "Legal expert for digital products, AI, websites. GDPR, EU AI Act, DSA, compliance, IP, NIS2. EU/DACH jurisdiction. Use before launch."
 model: opus
 color: red

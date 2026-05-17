@@ -1,5 +1,5 @@
 ---
-name: aik-senior-ai-engineer
+name: a1-aik-ai-engineer
 description: "AI/ML code — LLM integrations, RAG pipelines, agent systems, embeddings, vector search, prompt engineering, inference APIs."
 model: sonnet
 color: purple

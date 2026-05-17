@@ -1,13 +1,13 @@
-# Phase 2 — Review (reinhard sub-agent)
+# Phase 2 — Review (a1-reinhard-reviewer sub-agent)
 
-Goal: run a structured code review via `reinhard`. Output:
+Goal: run a structured code review via `a1-reinhard-reviewer`. Output:
 `<worktree>/.a1-review/findings.json` with BLOCKER / MAJOR / MINOR
 arrays.
 
 ## Inputs (from Phase 1)
 
 - `repo_root` (the main checkout, NOT the worktree)
-- `worktree_path` (the isolated checkout reinhard reads)
+- `worktree_path` (the isolated checkout a1-reinhard-reviewer reads)
 - `branch` (the feature branch)
 - `phase_history` (last entry, used as scope hint)
 
@@ -26,9 +26,9 @@ git -C "<worktree_path>" diff --stat main...HEAD
 
 If `main..HEAD` is empty: BLOCKER, no commits to review. Abort.
 
-### 2.2 Spawn reinhard via Task tool
+### 2.2 Spawn a1-reinhard-reviewer via Task tool
 
-Use the `Task` tool with `subagent_type: "reinhard"`. The brief MUST
+Use the `Task` tool with `subagent_type: "a1-reinhard-reviewer"`. The brief MUST
 include:
 
 ```
@@ -52,12 +52,12 @@ handling, input validation. Use the project's CLAUDE.md and rules as the
 review baseline.
 ```
 
-Wait for reinhard's response.
+Wait for a1-reinhard-reviewer's response.
 
 ### 2.3 Extract JSON block
 
-Parse the fenced ```json block from reinhard's response. If parsing
-fails, tell the user and re-prompt reinhard with a stricter
+Parse the fenced ```json block from a1-reinhard-reviewer's response. If parsing
+fails, tell the user and re-prompt a1-reinhard-reviewer with a stricter
 "JSON only, no prose" directive (max one retry).
 
 ### 2.4 Persist findings

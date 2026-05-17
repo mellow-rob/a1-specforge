@@ -4,7 +4,7 @@
 (P1/P2/P3), Functional Requirements (FR-###), Success Criteria (SC-###), Acceptance Scenarios,
 Edge Cases, Review Checklist. Mark anything ambiguous with `[NEEDS CLARIFICATION]`.
 
-**Sub-agent:** Rene (`~/.claude/agents/rene-requirement-engineer.md`).
+**Sub-agent:** Rene (`~/.claude/agents/a1-rene-requirement-engineer.md`).
 
 **Status transition:** `discovering` → `draft`.
 
@@ -15,7 +15,7 @@ return to Phase 1.
 
 ## Step 1 — Spawn Rene with the Specify brief
 
-Use the Task tool to spawn `rene-requirement-engineer` with this brief:
+Use the Task tool to spawn `a1-rene-requirement-engineer` with this brief:
 
 > You are Rene. Phase 1 (Discovery) is complete; the answers are in
 > `<spec-path>` under the `## Discovery —` headers. Your task: write a complete

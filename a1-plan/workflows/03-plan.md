@@ -1,6 +1,6 @@
 # Phase 3: Plan
 
-Spawn `a1-planner` to create the PLAN.md.
+Spawn `a1-pablo-planner` to create the PLAN.md.
 
 ## Prompt template
 
@@ -29,6 +29,6 @@ Planning phase is done when `PLAN.md` exists at the output path with `status: pl
 ## Revision mode
 
 If this is Phase 3 in a revision loop (AUDIT returned FAIL):
-- Pass both PLAN.md and AUDIT.md to a1-planner
+- Pass both PLAN.md and AUDIT.md to a1-pablo-planner
 - Include "Mode: REVISION" in the prompt
-- a1-planner will update PLAN.md and mark it as `status: revised`
+- a1-pablo-planner will update PLAN.md and mark it as `status: revised`

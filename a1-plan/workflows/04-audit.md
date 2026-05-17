@@ -1,6 +1,6 @@
 # Phase 4: Audit
 
-Spawn `a1-auditor` to validate the PLAN.md before execution.
+Spawn `a1-adam-auditor` to validate the PLAN.md before execution.
 
 ## Prompt template
 

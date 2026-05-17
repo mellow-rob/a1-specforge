@@ -127,11 +127,11 @@ run_lifecycle() {
   # --- final transition: probed -> reported ---
   A1_VAULT_ROOT="$vault" node "$TOOLS" reconcile update-status \
     "projects/demo/drift-2026-05-13.md" probed \
-    --phase-data '{"agents_dispatched":[{"name":"gsd-codebase-mapper","completed_at":"2026-05-13T12:00:00Z","drift_count":2}],"in_sync_count":3}' \
+    --phase-data '{"agents_dispatched":[{"name":"gsd-a1-marco-mapper","completed_at":"2026-05-13T12:00:00Z","drift_count":2}],"in_sync_count":3}' \
     >/dev/null 2>&1
   local up_exit=$?
   assert "[$fixture] update-status probed with phase-data exit=0" "$([[ $up_exit -eq 0 ]] && echo 1 || echo 0)"
-  if grep -q 'name=gsd-codebase-mapper' "$drift_file" && grep -q '^in_sync_count: 3$' "$drift_file"; then
+  if grep -q 'name=gsd-a1-marco-mapper' "$drift_file" && grep -q '^in_sync_count: 3$' "$drift_file"; then
     assert "[$fixture] phase-data agents_dispatched + in_sync_count persisted" "1"
   else
     assert "[$fixture] phase-data agents_dispatched + in_sync_count persisted" "0"
