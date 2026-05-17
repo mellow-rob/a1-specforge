@@ -47,6 +47,7 @@ SKILLS=(
   "a1-execute"
   "a1-progress"
   "a1-roadmap"
+  "a1-evolve"
   "_shared"
 )
 

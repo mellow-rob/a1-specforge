@@ -113,7 +113,22 @@ verified: <ISO date>
 <Items that were implemented differently from the plan — note if acceptable>
 ```
 
-## Step 6: Return verdict
+## Step 6: Write observations
+
+After writing VERIFICATION.md, append one observation per gap or plan-quality finding to `.a1/phases/<phase>/observations.jsonl`:
+
+```bash
+# For each gap found:
+echo '{"ts":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","agent":"a1-verifier","skill":"a1-execute","phase":"<phase>","wave":null,"type":"gap","severity":"<minor|major|critical>","msg":"<what was missing — one sentence>","pattern":"<tag>"}' >> .a1/phases/<phase>/observations.jsonl
+```
+
+Also write one `plan_quality` observation if you noticed a recurring structural issue in the plan (e.g., missing wiring tasks, vague done-when conditions):
+
+```bash
+echo '{"ts":"...","agent":"a1-verifier","skill":"a1-plan","phase":"<phase>","wave":null,"type":"plan_quality","severity":"minor","msg":"<what the planner missed>","pattern":"<tag>"}' >> .a1/phases/<phase>/observations.jsonl
+```
+
+## Step 7: Return verdict
 Output the verdict (PASS/PARTIAL/FAIL) and key gaps in a structured summary for the orchestrator.
 
 If FAIL or PARTIAL: list each gap with the recommended fix so a1-executor can target re-execution precisely.

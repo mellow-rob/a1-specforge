@@ -55,3 +55,59 @@ I recommend targeted re-execution. Which gaps should I fix first?
 ```
 
 For FAIL/PARTIAL re-execution: spawn a1-executor with a targeted prompt listing only the missing work, not the full plan.
+
+---
+
+## Retro-Capture (always — after verdict is shown)
+
+After presenting the verdict, write a learning entry to `~/.claude/skills/a1-execute/_learning.md`:
+
+```bash
+LEARNING_FILE="$HOME/.claude/skills/a1-execute/_learning.md"
+OBS_FILE=".a1/phases/<phase_name>/observations.jsonl"
+
+# Count observations
+OBS_COUNT=$(wc -l < "$OBS_FILE" 2>/dev/null || echo 0)
+# Count major+ observations
+MAJOR_COUNT=$(grep -c '"severity":"major\|critical"' "$OBS_FILE" 2>/dev/null || echo 0)
+
+cat >> "$LEARNING_FILE" << ENTRY
+
+## $(date +%Y-%m-%d) — <project_name> / <phase_name>
+
+**Skill:** a1-execute
+**Outcome:** <PASS|PARTIAL|FAIL> (<gaps count> gaps)
+**Project type:** <detected stack, e.g. Next.js + Postgres>
+**Observations:** $OBS_COUNT total, $MAJOR_COUNT major+
+
+### Observations summary
+$(cat "$OBS_FILE" 2>/dev/null | python3 -c "
+import sys, json
+for line in sys.stdin:
+    try:
+        o = json.loads(line)
+        print(f'- [{o[\"agent\"]}/W{o.get(\"wave\",\"?\")}/{o[\"severity\"]}] {o[\"msg\"]} (pattern: {o[\"pattern\"]})')
+    except: pass
+" 2>/dev/null || echo "- (no observations file)")
+
+### Retro
+<3-5 honest bullets — what went well, what didn't, one improvement suggestion>
+ENTRY
+```
+
+**Retro format (fill in honestly):**
+```
+✅ <what worked well — specific>
+✅ <what worked well>
+⚠️ <what didn't work / took extra effort>
+⚠️ <pattern that keeps recurring>
+💡 Suggestion: <one concrete improvement to a skill/agent file>
+```
+
+**Learning threshold check:**
+After writing, count total entries in `_learning.md`:
+```bash
+ENTRY_COUNT=$(grep -c "^## 20" "$LEARNING_FILE" 2>/dev/null || echo 0)
+```
+If `$ENTRY_COUNT` is a multiple of 5 (5, 10, 15...): surface to user:
+> "📚 5 neue Learnings akkumuliert. `a1-evolve` ausführen um Skill-Verbesserungen vorzuschlagen?"
