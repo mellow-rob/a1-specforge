@@ -1,146 +1,131 @@
-# a1 Skill-Set Roadmap — v2.0
+# a1-specforge Roadmap — v2.0
 
-**Erstellt:** 2026-05-12  
-**Owner:** Robert (N3URAL.AI)  
-**Horizon:** 2026-05-26 bis 2026-07-21  
-**Notion:** https://www.notion.so/35ef1cbe281e81e58eeac6e0dd825325
+**Created:** 2026-05-12  
+**Owner:** N3URAL.AI  
+**Horizon:** May – July 2026
 
 ## Vision
 
-Das n3ural.a1 Spec-Kit wird von einem guten Multi-Agent-Framework zu einem lückenlosen Entwicklungssystem: Jede Phase ist nachweislich abgeschlossen, jeder Artifact ist konsistent, kein Task bleibt unbemerkt leer.
+Turn a good multi-agent framework into a complete, provably-closed development system: every phase verifiably done, every artifact consistent, no task silently empty.
 
-## Hintergrund
+## Background
 
-Analyse von [GitHub spec-kit](https://github.com/github/spec-kit) ergab: Wir haben ein de-facto eigenes Spec-Kit gebaut, das in 4 Punkten besser ist (Vault-Integration, deutsche Sprache, Multi-Agent-Personas, code-review-graph MCP). In 3 Punkten sind wir schwächer:
+Comparing against [GitHub spec-kit](https://github.com/github/spec-kit): a1-specforge is stronger in four areas (Vault integration, multi-agent personas, code-review graph MCP, self-learning loop). It started weaker in three:
 
-1. Cross-Artifact-Consistency (kein Check: passt spec↔plan↔tasks zusammen?)
-2. Constitution-Trennung (CLAUDE.md vermischt Regeln + Daten)
-3. Phantom-Task-Detection (Task als [X] markiert aber kein Code dahinter?)
+1. Cross-artifact consistency (no check: does spec↔plan↔tasks align?)
+2. Constitution separation (CLAUDE.md mixed rules with project data)
+3. Phantom-task detection (task marked [X] but no code behind it?)
 
-Diese Roadmap schließt die Lücken.
-
----
-
-## M0 — Repo-Extract ✅ (2026-05-12)
-
-Skill-Set aus `~/.claude/skills/` in dieses Repo extrahiert. Symlinks gesetzt. Deployment via `bin/install.sh`.
-
-**Ergebnis:** Skills sind versioniert, reproduzierbar, öffentlich machbar.
+This roadmap closes those gaps.
 
 ---
 
-## M1 — Integrity Gates (bis 2026-05-26)
+## M0 — Repo Extract ✅ (2026-05-12)
 
-**Vision:** Kein Feature-Build startet mehr ohne verifizierten Artifact-Stack.
+Extracted skill set from `~/.claude/skills/` into this repo. Symlinks set. Deployment via `bin/install.sh`.
 
-### Features
-
-- **`a1-analyze` Skill** (MUST)
-  - Cross-Artifact Consistency Check: prüft Spec.md vs. PLAN.md vs. Task-Liste
-  - Hard Gate zwischen Phase 4 (Plan) → Phase 5 (Build) in `a1-new-feature`
-  - Output: Konsistenz-Score + Diff-Liste bei Abweichungen
-  - Fail-Verhalten: Phase 5 startet nicht
-
-- **`a1-constitution` Skill** (MUST)
-  - Generiert `constitution.md` pro Projekt
-  - Klare Trennung: `CLAUDE.md` = Daten + Kontext / `constitution.md` = Verhaltensregeln + Override-Reihenfolge
-  - 4-Layer Override-Precedence: Global Rules < Project CLAUDE.md < Agent Frontmatter < Session Instruction
-
-### Erfolgs-Kriterien
-
-- [ ] `a1-analyze` blockiert nachweislich einen fehlerhaften Phase-4→5-Übergang im Testlauf
-- [ ] Jedes aktive Projekt (n3ural-platform, niimo) hat eine `constitution.md`
-- [ ] Override-Reihenfolge an einer einzigen Stelle dokumentiert
+**Result:** Skills are versioned, reproducible, and publicly shareable.
 
 ---
 
-## M2 — Phantom-Proof Execution (bis 2026-06-23)
+## M1 — Integrity Gates ✅ (2026-05-17)
 
-**Vision:** Kein Task bleibt unentdeckt leer.
+**Goal:** No feature build starts without a verified artifact stack.
 
-### Features
+### Shipped
 
-- **Phantom-Task-Detection** (MUST)
-  - Erweiterung phase-verifier Phase 6: prüft ob jede `[X]`-Task einen Code-Change hat
-  - CLI-Patch: `verify-work` CLI mit Warning-Level
-  - Docs-only Tasks via `# no-code`-Tag in PLAN.md ausgenommen
+- **`a1-analyze`** — 5-phase parallel codebase analysis (general, security, architecture, quality, onboarding). Hard gate between Plan → Build in `a1-new-feature`.
+- **`a1-constitution`** — Generates `constitution.md` per project. Clear separation: `CLAUDE.md` = facts + context / `constitution.md` = behavioral rules + 4-layer override precedence (Global Rules < Project CLAUDE.md < Agent Frontmatter < Session Instruction).
+- **`a1-check`** — Bijective FR-coverage gate: every functional requirement maps to exactly one wave, no gaps, no duplicates.
 
-- **`a1-checklist` Skill** (SHOULD)
-  - Spec-Quality-Check ("Unit Tests for English"), 8 Prüfpunkte
-  - Pre-Phase-1, kein Hard-Gate aber Rene sieht es vor Freigabe
+### Success criteria
 
-- **`a1-worktree` Skill** (SHOULD)
-  - Git-Worktree-Isolation für Wave-Parallelism
-  - Layout: `~/code/.worktrees/<project>/wave-<id>-<slug>/`
-  - Automatisches Anlegen (Phase 4.5) + Aufräumen (Phase 7) in `a1-new-feature`
-  - Vincente dispatcht Code-Agents mit `cwd=<worktree>`
-
-- **`a1-pr-review` Skill + Reinhard PR-Mode** (SHOULD)
-  - PR pro Wave, nicht pro Agent, nicht pro Feature
-  - Reinhard reviewt via `gh pr diff` + schreibt `gh pr review --comment`
-  - Trigger: skill-internal in Phase 5.5, oder manuell via `/a1-pr-review <pr-num>`
-
-### Erfolgs-Kriterien
-
-- [ ] Phantom-Detection schlägt in einem echten Feature-Build an (mind. 1 Fund)
-- [ ] `a1-checklist` als optionaler Pre-Check in `a1-new-feature` integriert
-- [ ] `a1-worktree` läuft erfolgreich in einem Feature-Build
-- [ ] Reinhard reviewt einen Wave-PR und gibt APPROVE/REQUEST_CHANGES zurück
+- [x] `a1-analyze` ships with 5 parallel sub-agent phases
+- [x] Constitution skill generates a complete `constitution.md` with 4-layer override model
+- [x] Override precedence documented in one place, enforced in Reinhard reviews
 
 ---
 
-## M3 — Quality Surface Expansion (bis 2026-07-21)
+## M2 — Phantom-Proof Execution ✅ (2026-05-17)
 
-**Vision:** Code-Review und Feature-Ideation sind nahtlos integriert.
+**Goal:** No task silently empty.
 
-### Features
+### Shipped
 
-- **Reinhard + Tobi Erweiterung** (SHOULD)
-  - Reinhard: `constitution.md`-aware Reviews, RLS-Check als Pflicht für n3ural-platform PRs
-  - Tobi: `constitution.md`-Compliance als Blocking-Gate in Launch-Readiness-Checklist
+- **`a1-phantom`** — Phantom-task detection: checks every `[X]` task in PLAN.md against the actual git diff. Docs-only tasks exempt via `# no-code` tag.
+- **`a1-checklist`** — Pre-flight validator. 8 checks before execution: BLOCKER / MAJOR / MINOR severity. Integrates into `a1-new-feature` as an optional pre-check.
+- **`a1-worktree`** — Git worktree lifecycle: prepare → enter → exit (keep / discard / handoff). Layout: `~/code/.worktrees/<project>/wave-<id>-<slug>/`.
+- **`a1-pr-review` + Reinhard PR-mode** — One PR per wave. Reinhard reviews via `gh pr diff`, writes `gh pr review --comment`, APPROVE/REQUEST_CHANGES gate before merge.
 
-- **feature-idea / feature-spec Konsolidierung** (SHOULD)
-  - Merge oder klare Entry-Conditions dokumentieren
-  - Eine Dokumentation, kein Ratespiel mehr
+### Success criteria
 
-- **`a1-reconcile` Skill** (COULD)
-  - Spec-Drift-Detection: vergleicht Implementation mit Spec, findet Abweichungen
-  - Trigger: manuell oder bei wöchentlichem Vault-Sync
-  - Output: `projects/<name>/drift-YYYY-MM-DD.md` in Obsidian
-
-### Erfolgs-Kriterien
-
-- [ ] Reinhard schlägt bei einem n3ural-platform PR wegen fehlendem RLS-Check an
-- [ ] `feature-idea` / `feature-spec` haben eindeutige, dokumentierte Einstiegs-Bedingungen
-- [ ] `a1-reconcile` läuft ohne Fehler auf einem Testprojekt
+- [x] `a1-phantom` ships and detects phantom tasks against real git diffs
+- [x] `a1-checklist` runs as optional pre-check in `a1-new-feature`
+- [x] `a1-worktree` lifecycle fully implemented
+- [x] Reinhard reviews a wave PR and returns APPROVE or REQUEST_CHANGES
 
 ---
 
-## Backlog (Someday/Maybe)
+## M3 — Quality Surface Expansion ✅ (2026-05-17)
 
-- Cost-Tracker per Spec (Token-Kosten je Feature-Build)
-- PR-Bridge / Auto-Changelog (PLAN.md → PR Description)
-- GH-Actions-Integration (wenn Multi-Person-Setup kommt)
+**Goal:** Code review and feature ideation seamlessly integrated.
 
-## Bewusst ausgeschlossen
+### Shipped
 
-- Vollständige spec-kit-Adoption (unser Stack ist besser angepasst)
-- Jira/Confluence-Integration (kein Bedarf als Solo-Operator)
-- V-Model-Extension (Overkill)
+- **Reinhard + Tobi extensions** — Reinhard: `constitution.md`-aware reviews, RLS check as mandatory for n3ural-platform PRs. Tobi: `constitution.md` compliance as blocking gate in launch-readiness checklist (STEP 8).
+- **Feature entry conditions** — `docs/feature-entry-conditions.md`: clear decision tree for `feature-idea` vs `feature-spec` vs `a1-new-feature`. No more guessing.
+- **`a1-reconcile`** — Spec-drift detection: compares implementation against spec, classifies MISSING / EXTRA / DIVERGED / STALE. Output: `projects/<name>/drift-YYYY-MM-DD.md` in Obsidian Vault.
+
+### Success criteria
+
+- [x] Reinhard flags missing RLS coverage in constitution-aware review mode
+- [x] `feature-idea` / `feature-spec` have documented, unambiguous entry conditions
+- [x] `a1-reconcile` runs cleanly on a test project with DIVERGED semantic routing to Alex
 
 ---
 
-## Abhängigkeiten
+## M4 — Self-Learning Loop ✅ (2026-05-17)
+
+**Goal:** Skills improve through use, not through theorizing.
+
+### Shipped
+
+- **`a1-plan`** — Research → Map → Plan → Audit pipeline. 4 parallel sub-agents: a1-researcher, a1-mapper, a1-planner, a1-auditor.
+- **`a1-execute`** — Wave-by-wave execution with a1-executor + a1-verifier. Inline observations written to `.a1/phases/<name>/observations.jsonl`.
+- **`a1-progress`** — Project status check across all active phases.
+- **`a1-roadmap`** — New project / milestone planning.
+- **`a1-evolve`** — Self-optimization engine: reads `_learning.md` files + Obsidian Vault learning store, clusters patterns (threshold: 3+ occurrences), proposes diffs for SKILL.md and agent files.
+- **6 framework agents** — a1-researcher, a1-planner, a1-executor, a1-verifier, a1-mapper, a1-auditor.
+
+### Success criteria
+
+- [x] a1-execute writes structured observations after each wave
+- [x] a1-evolve reads Vault as canonical learning store
+- [x] 5-run accumulation triggers an evolution proposal
+
+---
+
+## Backlog (Someday / Maybe)
+
+- Cost tracker per spec (token spend per feature build)
+- PR-bridge / auto-changelog (PLAN.md → PR description)
+- GitHub Actions integration (multi-person setup)
+- `a1-test` — spec-driven test generation (Playwright + Vitest from acceptance criteria)
+
+## Deliberately excluded
+
+- Full spec-kit adoption (a1-specforge is better adapted to our stack)
+- Jira / Confluence integration (no need for solo operator)
+- V-model extension (overkill)
+
+---
+
+## Dependency graph
 
 ```
-M0: Repo-Extract (done)
-  └── M1: a1-constitution → M2: a1-checklist, M3: Reinhard/Tobi
-  └── M1: a1-analyze → M2: Phantom-Detection, M3: a1-reconcile
-  └── M2: a1-worktree → M2: a1-pr-review → M3: Reinhard PR-Mode
+M0: Repo extract
+  └── M1: a1-constitution, a1-analyze, a1-check
+        └── M2: a1-checklist, a1-phantom, a1-worktree, a1-pr-review
+              └── M3: Reinhard/Tobi extensions, a1-reconcile, feature-entry-conditions
+                    └── M4: a1-plan, a1-execute, a1-evolve, a1-progress, a1-roadmap
 ```
-
-## Scope-Hinweis
-
-- Säule 2 (AI Consulting) + n3ural-platform: Worktrees + PRs sinnvoll
-- Säule 1 (KMU-Web / website-pipeline): bleibt unverändert, kein Worktree-Overhead
-- Bug-Fixes (a1-fix): Branch-only reicht, kein Worktree nötig
