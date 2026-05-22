@@ -35,7 +35,7 @@ Write to `projects/<project-slug>/spec/<###>-<feature-slug>.md` (relative to vau
 
 ## Step 3 — Spawn Rene with the Discovery brief
 
-Use the Task tool to spawn the `a1-rene-requirement-engineer` agent with this brief:
+Use the **Agent** tool with `subagent_type: "a1-rene-requirement-engineer"` and this brief:
 
 > You are Rene conducting the discovery for a new feature idea. Your task: run a
 > structured interview, **one question per turn**. You must cover the following
@@ -63,7 +63,7 @@ Rene appends to the spec file directly while the interview runs.
 
 ## Step 4 — Confirm completion
 
-When Rene reports "Discovery komplett":
+When Rene reports "Discovery complete":
 
 1. Verify all ten Discovery sections in the spec have at least one bullet.
 2. Ask the user: "Discovery looks like this — does it look right, or is anything important missing?"

@@ -2,7 +2,7 @@
 name: a1-new-feature
 description: >
   End-to-end pipeline for taking a new feature idea from raw concept to verified implementation.
-  Six phases: Discover → Specify → Clarify → Plan → Implement → Verify. State lives in the spec
+  Seven phases: Discover → Specify → Clarify → Plan → Consistency Gate → Implement → Verify. State lives in the spec
   file's YAML frontmatter and progresses through: discovering → draft → clarified → planned →
   implementing → done (or cancelled). Specs are stored in the Obsidian Vault under
   projects/<slug>/spec/<###>-<feature-slug>.md, wave plans under projects/<slug>/plans/.
@@ -47,7 +47,7 @@ delegate directly to the relevant agent (Rene / Vincente / code agents) and skip
 | 4 | Plan | `workflows/04-plan.md` | **Opus 4.7** | planned |
 | 4.5 | Consistency Gate | `workflows/04.5-consistency-gate.md` | Sonnet (CLI only) | planned (PASS) / awaiting-consistency-fix (FAIL) |
 | 5 | Implement | `workflows/05-implement.md` | Sonnet | implementing → done |
-| 6 | Verify | `workflows/06-verify.md` | Sonnet | done (or implementing if failures) |
+| 6 | Verify + Retro | `workflows/06-verify.md` | Sonnet | done (or implementing if failures) |
 
 > **Consistency Gate (Phase 4.5)** is a deterministic CLI gate (no LLM) that
 > verifies the wave-plan structurally covers the spec (bijective FR coverage,
@@ -55,7 +55,8 @@ delegate directly to the relevant agent (Rene / Vincente / code agents) and skip
 > start on FAIL. On FAIL the spec status moves to `awaiting-consistency-fix`
 > and re-invocation routes back to Phase 4.5 automatically.
 
-> **Clarify (Phase 3)** runs with **Opus 4.7** and includes a proactive scope scan plus
+> **Clarify (Phase 3)** runs with **Opus 4.7** and includes a **10-category proactive scope scan**
+> (covering navigation context, duplicate submit, permissions, empty states, and more) plus
 > — for frontend features — **UX Mockups from Uwe**: at least 2–3 variants per screen,
 > based on the project-specific design-system skill, for user approval before the
 > wave plan is built.
@@ -134,12 +135,12 @@ The skill **proposes** code agents in Phase 5 based on the wave-plan brief; the 
 - Never recycle sequence numbers. Cancelled specs keep their slot.
 - Never modify a spec while it is in `implementing` without surfacing the change to the user
   first; spec drift mid-implementation breaks Phase 6 verify.
-- User-facing prompts and questions are in **English**. All file content (spec frontmatter,
-  technical notes, FR/SC IDs) stays in English.
+- All file artifacts (spec frontmatter, FR/SC IDs, wave plans, verification notes) stay in
+  English. User-facing communication follows the project's language convention.
 - One question per turn during Discover and Clarify. No wall-of-text interviews.
 
 ## Hand-offs (out of scope for this skill)
 
-- Bug fixes: future `a1-fix` skill.
+- Bug fixes: `a1-fix` skill.
 - Cross-feature roadmap planning: Frank or Vincente directly.
 - Production deployment: Dirk / Dennis after Phase 6 done.

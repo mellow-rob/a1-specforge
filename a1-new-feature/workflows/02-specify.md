@@ -15,7 +15,7 @@ return to Phase 1.
 
 ## Step 1 — Spawn Rene with the Specify brief
 
-Use the Task tool to spawn `a1-rene-requirement-engineer` with this brief:
+Use the **Agent** tool with `subagent_type: "a1-rene-requirement-engineer"` and this brief:
 
 > You are Rene. Phase 1 (Discovery) is complete; the answers are in
 > `<spec-path>` under the `## Discovery —` headers. Your task: write a complete
