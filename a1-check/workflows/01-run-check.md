@@ -96,3 +96,28 @@ Stop. Do not propose `a1-new-feature` re-entry — the problem is below that lev
 - After ERROR with the user acknowledging the setup issue.
 
 The skill does not maintain state between invocations.
+
+## Retro (mandatory, every run)
+
+After every run — PASS, FAIL, or ERROR — write one structured entry. Takes 2
+minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-check/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: spec ↔ wave-plan consistency check for <feature>
+project: <project-slug>
+result: <pass|fail|error>
+issues: [<relevant tags: missing-fr-in-plan, duplicated-fr, phantom-fr, frontmatter-link-broken, file-missing, frontmatter-unparseable, ...>]
+what_worked: <one sentence — e.g. "PASS first run, plan and spec aligned">
+one_line_learning: <what would have prevented the FAIL/ERROR, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-check.md`
+
+A run with no issues is still useful data — write the entry.

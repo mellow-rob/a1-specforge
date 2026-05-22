@@ -109,3 +109,28 @@ Stop. Do not propose any agent re-entry — the problem is below that level.
 - After ERROR with the user acknowledging the setup issue.
 
 The skill does not maintain state between invocations.
+
+## Retro (mandatory, every run)
+
+After every run — PASS, PASS_WITH_WARNINGS, FAIL, or ERROR — write one
+structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-checklist/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: pre-flight checklist for <feature-target>
+project: <project-slug>
+result: <pass|pass_with_warnings|fail|error>
+issues: [<relevant tags: spec-not-clarified, missing-wave-plan, dep-cycle, missing-claude-md, frontmatter-incomplete, setup-error, ...>]
+what_worked: <one sentence — e.g. "all 8 checks passed first try">
+one_line_learning: <what would have prevented the failed check, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-checklist.md`
+
+A run with no issues is still useful data — write the entry.

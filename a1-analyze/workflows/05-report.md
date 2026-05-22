@@ -16,7 +16,7 @@ Apply this routing logic to the deduplicated findings:
 | MAJOR with structural change (multiple files, new module, refactor) | `a1-new-feature` (grouped by structural area) |
 | MAJOR with compliance/legal scope | direct → Ludwig |
 | All remaining MAJOR + MINOR (polish, style, small) | "Backlog" (no skill) |
-| Architectural drift mentioned in Synthesis patterns | direct → Alex, or `a1-reconcile` (M3 — not yet built, mention as future) |
+| Architectural drift mentioned in Synthesis patterns | direct → a1-alex-architekt, or `a1-reconcile` (spec-vs-implementation drift detection) |
 
 Each entry has: `skill`, `reason`, `target_findings` (list of F-IDs).
 
@@ -87,7 +87,7 @@ Do NOT auto-activate any follow-up skill. The hard rule applies:
 When the user picks an option, formulate the next prompt:
 
 - For `1` (a1-fix): "You can now say: 'Bug report: <BLOCKER-symptom>
-  in <project>.' That activates a1-fix with Falk's triage interview."
+  in <project>.' That activates a1-fix with a1-falk-fault-finder's triage interview."
 - For `2` (a1-new-feature): "You can now say: 'New feature: <refactor-scope>
   in <project>.' That activates a1-new-feature."
 - For `3` (Backlog): "Backlog documented in the analysis file (Recommendations
@@ -111,4 +111,29 @@ orchestrators.
   recommended."
 - **User wants to compare with a previous analysis:** mention that
   `a1-tools analyze list <slug>` returns all analyses sorted by date. Out of
-  scope for this skill to do diff-reports — that's M3 `a1-reconcile`.
+  scope for this skill to do diff-reports — for spec-vs-implementation drift
+  use `a1-reconcile`.
+
+## Retro (mandatory, every run)
+
+After every run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-analyze/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: <short description of analyzed project + focus>
+project: <project-slug>
+result: <pass|fail|partial>
+issues: [<relevant tags: agent-timeout, empty-findings, contract-violation, dispatch-error, vault-path-issue, ...>]
+what_worked: <one sentence — e.g. "parallel dispatch of 3 agents completed in one turn">
+one_line_learning: <what would have prevented the main issue, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-analyze.md`
+
+A run with no issues is still useful data — write the entry.

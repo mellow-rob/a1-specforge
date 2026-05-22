@@ -1,21 +1,24 @@
 ---
 name: a1-checklist
 description: >
-  Pre-flight readiness gate for a feature's wave-plan. Runs 8 deterministic
-  structural checks before implementation begins: spec status is clarified,
-  wave-plan exists, every wave has a Suggested agent line, dependencies form
-  a DAG (no cycles), every wave references advanced stories, project CLAUDE.md
-  is present, plans/ directory convention is honored, and plan frontmatter has
-  all required fields. Severities map to BLOCKER (stops the gate), MAJOR (warns),
-  MINOR (info). MUST trigger when the user says: "checkliste für <feature>",
-  "pre-flight check", "ist der plan implementierungs-bereit", "a1-checklist",
-  "prüf die wave-plan-vollständigkeit", "checklist run <slug>", or asks whether
-  a wave-plan is ready to be handed off to executing agents. Distinct from
-  a1-check (which is FR-coverage between spec and plan) — this is the broader
+  Use PROACTIVELY as the pre-flight readiness gate before ANY feature
+  implementation starts. Runs 8 deterministic structural checks on a feature's
+  wave-plan: spec status is `clarified`, wave-plan exists, every wave has a
+  Suggested agent line, dependencies form a DAG (no cycles), every wave
+  references advanced stories, project CLAUDE.md is present, plans/ directory
+  convention is honored, and plan frontmatter has all required fields. Severity
+  maps to BLOCKER (stops the gate), MAJOR (warns), MINOR (info). MUST trigger
+  on: "checkliste für <feature>", "pre-flight check", "ist der plan
+  implementierungs-bereit", "ready für implementation", "plan check", "kann ich
+  jetzt mit der umsetzung starten", "prüf die wave-plan-vollständigkeit",
+  "checklist run <slug>", "a1-checklist", or any request to verify whether a
+  wave-plan is ready to be handed to executing agents. Distinct from a1-check
+  (which is narrow FR-coverage between spec and plan) — this is the broader
   readiness gate covering structure, metadata, and project hygiene. Exit
   semantics: 0=PASS or PASS_WITH_WARNINGS, 1=FAIL (BLOCKER), 2=ERROR (setup).
-  Do not activate for: FR-coverage checks (use a1-check), semantic spec review
-  (delegate to Rene), or generic project audits (use a1-analyze).
+  Do NOT activate for: FR-coverage checks (→ a1-check), semantic spec review
+  (→ a1-rene-requirement-engineer), generic project audits (→ a1-analyze), or
+  post-implementation quality checks (→ a1-tobi-tester).
 allowed-tools:
   - Bash
   - Read

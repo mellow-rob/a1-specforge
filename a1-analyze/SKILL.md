@@ -1,26 +1,23 @@
 ---
 name: a1-analyze
 description: >
-  End-to-end pipeline for deeply analyzing an existing project or codebase and
-  producing a structured Markdown report. Five phases: Scope → Discover →
-  Analyze → Synthesize → Report. State lives in the analysis file's YAML
-  frontmatter and progresses through: scoped → discovered → analyzed →
-  synthesized → reported. Reports are stored in the Obsidian Vault under
-  projects/<slug>/analyses/<YYYY-MM-DD>-<focus>[-N].md. Supports focus modes:
-  general, security, architecture, quality, onboarding. MUST trigger when the
-  user says: "Analysiere <projekt>", "Analyze <projekt>", "Projekt-Audit",
-  "Codebase-Überblick", "Security-Analyse", "Architektur-Analyse",
-  "Quality-Check für <projekt>", "Tech-Stack scannen", "Onboarding-Doku für
-  <projekt>", "a1-analyze", "Pre-Refactor-Audit", or any request to assess,
-  audit, map, or survey an existing project without changing its code. This
-  skill orchestrates sub-agents (Reinhard for security/quality, Alex for
-  architecture, a1-marco-mapper for structure, Walter/Aik for stack-specific
-  depth, optionally Ludwig for legal/compliance); it does NOT replace them and
-  it does NOT modify project code. Do not activate for: bug reports (use
-  a1-fix for "Bug in <projekt>", "crash", "Fehler", "broken"), new feature work
-  (use a1-new-feature for "neues Feature", "spec", "Anforderung"), code review
-  of an open PR (use Reinhard directly), or spec-vs-implementation drift checks
-  (planned as a1-check, separate skill).
+  Use PROACTIVELY whenever the user wants to understand, audit, map, survey, or
+  document an existing codebase WITHOUT changing its code. Five-phase pipeline:
+  Scope → Discover → Analyze → Synthesize → Report. State in the analysis file
+  frontmatter (scoped → discovered → analyzed → synthesized → reported). Output
+  is stored in the Obsidian Vault: projects/<slug>/analyses/<YYYY-MM-DD>-<focus>[-N].md.
+  Five focus modes: general, security, architecture, quality, onboarding. MUST
+  trigger on: "analysiere <projekt>", "analyze <projekt>", "projekt-audit",
+  "codebase-überblick", "codebase scan", "security-analyse", "security audit",
+  "architektur-analyse", "architecture review", "quality-check für <projekt>",
+  "tech-stack scannen", "onboarding-doku für <projekt>", "pre-refactor-audit",
+  "wie ist <projekt> aufgebaut", "was läuft in <projekt>", or "a1-analyze".
+  Orchestrates read-only sub-agents (a1-reinhard-reviewer, a1-alex-architekt,
+  a1-marco-mapper, a1-walter-web-developer, a1-aik-ai-engineer, a1-ludwig-legal)
+  in parallel during Phase 3. Never modifies project code; findings only.
+  Do NOT activate for: bug reports (→ a1-fix), new feature work (→ a1-new-feature),
+  PR code review (→ a1-reinhard-reviewer directly), or spec-vs-plan drift
+  (→ a1-check for FR-coverage, a1-reconcile for spec-vs-implementation).
 allowed-tools:
   - Read
   - Write
@@ -66,11 +63,11 @@ The skill operates in one of five focus modes, set in Phase 1:
 
 | Focus | Primary sub-agents (Phase 3) | What gets analyzed |
 |---|---|---|
-| `general` | a1-marco-mapper + Reinhard | Tech stack, structure, top quality concerns |
-| `security` | Reinhard + optional Ludwig | Auth, secrets, RLS, dependencies, compliance |
-| `architecture` | Alex | System design, module boundaries, coupling, ADRs gap |
-| `quality` | Reinhard + a1-marco-mapper | Code quality, complexity, test coverage, dead code |
-| `onboarding` | a1-marco-mapper + Alex + Walter/Aik | "How does this project work" doc for newcomers |
+| `general` | a1-marco-mapper + a1-reinhard-reviewer | Tech stack, structure, top quality concerns |
+| `security` | a1-reinhard-reviewer + optional a1-ludwig-legal | Auth, secrets, RLS, dependencies, compliance |
+| `architecture` | a1-alex-architekt | System design, module boundaries, coupling, ADRs gap |
+| `quality` | a1-reinhard-reviewer + a1-marco-mapper | Code quality, complexity, test coverage, dead code |
+| `onboarding` | a1-marco-mapper + a1-alex-architekt + a1-walter-web-developer / a1-aik-ai-engineer | "How does this project work" doc for newcomers |
 
 ## Routing — pick the right phase
 
@@ -125,14 +122,16 @@ Override via env var `A1_VAULT_ROOT` if testing.
 |---|---|---|
 | 1 Scope | — (the skill itself) | — |
 | 2 Discover | — (CLI helper only) | `_shared/a1-tools.cjs analyze discover` |
-| 3 Analyze | Reinhard, Alex, Ludwig, Walter, Aik, a1-marco-mapper | `~/.claude/agents/*.md` (see `agents/*-link.md`) |
+| 3 Analyze | a1-reinhard-reviewer, a1-alex-architekt, a1-ludwig-legal, a1-walter-web-developer, a1-aik-ai-engineer, a1-marco-mapper | `~/.claude/agents/*.md` (see `agents/*-link.md`) |
 | 4 Synthesize | — (the skill itself) | — |
 | 5 Report | — (the skill itself) | — |
 
-Sub-agents are spawned via the `Task` tool with a focused brief constructed
-from `templates/agent-brief-template.md`. They receive Project Context (Discover
-output), Focus, Output-Contract, and Out-of-Scope. They MUST return findings in
-the contract schema; the skill rejects anything else and re-asks once.
+Sub-agents are spawned via the Task tool with the `subagent_type` matching the
+agent name (e.g. `subagent_type: "a1-reinhard-reviewer"`). The brief is
+constructed from `templates/agent-brief-template.md` and provides Project
+Context (Discover output), Focus, Output-Contract, and Out-of-Scope. They MUST
+return findings in the contract schema; the skill rejects anything else and
+re-asks once.
 
 Sub-agents in this skill are **read-only**. They never modify project files. If
 a sub-agent suggests a change, it goes into `recommendation` of a finding, not
@@ -148,7 +147,8 @@ into code.
   `{severity: BLOCKER|MAJOR|MINOR, category, location, description, recommendation}`.
   Free-prose answers are rejected and re-requested once.
 - Phase 3 dispatches sub-agents in parallel when independent (multi-tool-call
-  with several `Task` invocations in one turn).
+  with several Task invocations in one turn, each with the correct
+  `subagent_type` of the named a1 agent).
 - Auto-dispatch in Phase 3 is allowed because sub-agents are read-only. No user
   approval needed before each dispatch.
 - The skill NEVER writes into `projects/<slug>/fixes/` or `projects/<slug>/features/`.
@@ -167,11 +167,11 @@ into code.
   `suggested_next:`, user activates manually).
 - Bug fixes for BLOCKER findings: `a1-fix` skill (proposed in `suggested_next:`,
   user activates manually).
-- Legal/DSGVO compliance deep-dive: Ludwig directly.
-- Architecture deep-session for systemic drift: Alex directly, or future
-  `a1-reconcile` skill (M3 roadmap).
-- Final launch-readiness audit: Tobi.
-- PR code review: Reinhard directly.
+- Legal/DSGVO compliance deep-dive: a1-ludwig-legal directly.
+- Architecture deep-session for systemic drift: a1-alex-architekt directly, or
+  `a1-reconcile` skill for spec-vs-implementation drift detection.
+- Final launch-readiness audit: a1-tobi-tester.
+- PR code review: a1-reinhard-reviewer directly.
 
 ## Versions
 

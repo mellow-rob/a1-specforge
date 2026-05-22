@@ -1,18 +1,22 @@
 ---
 name: a1-check
 description: >
-  Cross-artifact consistency gate between a feature's spec and its wave-plan.
-  Verifies three structural invariants (deterministic, no LLM): (1) the wave-plan
-  frontmatter spec_path resolves to the expected spec, (2) every FR-### from the spec
-  appears in exactly one Wave, (3) no FR-### in the plan is absent from the spec.
-  Primary caller is a1-new-feature's Phase 4.5 gate between Plan and Implement, but
-  this skill can also be invoked manually. Exit semantics: 0=PASS, 1=FAIL (content
-  inconsistency), 2=ERROR (missing file / bad frontmatter). MUST trigger when the user
-  says: "konsistenz-check für <feature>", "check consistency between spec and plan",
-  "a1-check", "prüfe ob plan zur spec passt", "verify wave plan", or asks to validate
-  that a wave-plan covers all spec FRs. Do not activate for: bug consistency
-  (a1-fix has its own model), generic project audits (a1-analyze), or semantic spec
-  review (delegate to Rene). This gate is structural, not semantic.
+  Use PROACTIVELY whenever a wave-plan needs to be validated against its spec.
+  Narrow, deterministic, no-LLM consistency gate verifying three structural
+  invariants between a feature's spec and its wave-plan: (1) the wave-plan
+  frontmatter `spec_path` resolves to the expected spec, (2) every FR-### from
+  the spec appears in exactly one Wave, (3) no FR-### in the plan is absent
+  from the spec. Primary caller is a1-new-feature's Phase 4.5 gate between
+  Plan and Implement; can also be invoked manually. Exit semantics: 0=PASS,
+  1=FAIL (content inconsistency), 2=ERROR (missing file / bad frontmatter).
+  MUST trigger on: "konsistenz-check für <feature>", "check consistency
+  between spec and plan", "prüfe ob plan zur spec passt", "verify wave plan",
+  "fr-coverage check", "deckt der plan die spec ab", "a1-check", or any request
+  to validate that a wave-plan covers all spec FRs. Do NOT activate for: broader
+  pre-flight readiness (→ a1-checklist, covers 8 structural+metadata checks),
+  bug consistency (→ a1-fix), generic project audits (→ a1-analyze), semantic
+  spec review (→ a1-rene-requirement-engineer), or spec-vs-implementation drift
+  (→ a1-reconcile). This gate is purely structural FR-coverage.
 allowed-tools:
   - Bash
   - Read
@@ -98,9 +102,11 @@ See `workflows/01-run-check.md`.
 
 ## Hand-offs
 
-- On FAIL with missing FRs in waves → suggest re-running `a1-new-feature` Phase 4 (Plan).
+- On FAIL with missing FRs in waves → suggest re-running `a1-new-feature` Phase 4 (Plan)
+  via a1-pablo-planner.
 - On FAIL with phantom FRs → suggest re-running `a1-new-feature` Phase 3 (Spec/Clarify)
-  to add the FRs, or editing the wave-plan to drop the phantoms.
+  via a1-rene-requirement-engineer to add the FRs, or editing the wave-plan to drop
+  the phantoms.
 - On FAIL with frontmatter-link mismatch → suggest a targeted edit of the plan's
   YAML frontmatter (`spec_path`).
 - On ERROR (setup) → ask the user to create the missing file or repair the

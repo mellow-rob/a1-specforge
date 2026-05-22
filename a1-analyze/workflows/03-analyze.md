@@ -10,23 +10,23 @@ Read the focus from frontmatter. Use this mapping:
 
 | Focus | Agents to dispatch (parallel) |
 |---|---|
-| `general` | a1-marco-mapper, Reinhard |
-| `security` | Reinhard (always), Ludwig (only if compliance/DSGVO mentioned in Scope) |
-| `architecture` | Alex |
-| `quality` | Reinhard, a1-marco-mapper |
-| `onboarding` | a1-marco-mapper, Alex, plus stack-specialist: Aik for AI-heavy, Walter for web-heavy, Felix for Flutter |
+| `general` | a1-marco-mapper, a1-reinhard-reviewer |
+| `security` | a1-reinhard-reviewer (always), a1-ludwig-legal (only if compliance/DSGVO mentioned in Scope) |
+| `architecture` | a1-alex-architekt |
+| `quality` | a1-reinhard-reviewer, a1-marco-mapper |
+| `onboarding` | a1-marco-mapper, a1-alex-architekt, plus stack-specialist: a1-aik-ai-engineer for AI-heavy, a1-walter-web-developer for web-heavy, felix-flutter-engineer (global) for Flutter |
 
 The stack-specialist for `onboarding` is chosen from the discover `tech_stack`:
-- If `tech_stack` contains `flutter`/`dart` → Felix
-- If `tech_stack` contains AI/ML markers (langchain, transformers, vector DBs) → Aik
-- Otherwise → Walter
+- If `tech_stack` contains `flutter`/`dart` → felix-flutter-engineer
+- If `tech_stack` contains AI/ML markers (langchain, transformers, vector DBs) → a1-aik-ai-engineer
+- Otherwise → a1-walter-web-developer
 
 ## Step 2 — Build briefs from the template
 
 For each selected agent, read `~/.claude/skills/a1-analyze/templates/agent-brief-template.md`
 and construct the brief by substituting:
 
-- `<AGENT_NAME>` — the agent name (e.g. `Reinhard`)
+- `<AGENT_NAME>` — the agent name (e.g. `a1-reinhard-reviewer`)
 - `<FOCUS_HUMAN>` — the focus label (Security / Architecture / Quality / Onboarding / General)
 - `<PROJECT_SLUG>`, `<ANALYZED_PATH>` — from frontmatter
 - `<TECH_STACK_LIST>`, `<LOC>`, `<FILE_COUNT>`, `<LAST_COMMIT>`, `<BRANCH>`, `<COMMIT_COUNT_30D>` — from `discover[]`
@@ -38,21 +38,23 @@ MUST appear verbatim. No shortening.
 
 ## Step 3 — Dispatch in parallel
 
-Use the `Task` tool with multiple invocations in a single turn (one `Task` call
+Use the Task tool with multiple invocations in a single turn (one Task call
 per agent). This gives each sub-agent its own context window.
 
-Example (conceptual — actual call uses the Task tool):
+Always pass the actual agent name as `subagent_type` — every a1 agent has its
+own dedicated definition under `~/.claude/agents/`:
 
 ```
-Task(subagent_type="general-purpose", description="Reinhard security scan",
+Task(subagent_type="a1-reinhard-reviewer", description="security scan",
      prompt="<the full brief>")
-Task(subagent_type="general-purpose", description="Alex architecture review",
+Task(subagent_type="a1-alex-architekt", description="architecture review",
+     prompt="<the full brief>")
+Task(subagent_type="a1-marco-mapper", description="repo structure map",
      prompt="<the full brief>")
 ```
 
-For agents that have a dedicated `subagent_type` available (e.g. `a1-marco-mapper`),
-use that type. Otherwise use `general-purpose` and let the brief's first line
-identify the agent persona.
+Do NOT fall back to `general-purpose`. If an agent is not available, surface
+that as an error to the user and stop the phase.
 
 ## Step 4 — Validate each agent's output
 
@@ -94,8 +96,8 @@ node ~/.claude/skills/_shared/a1-tools.cjs analyze update-status \
   "<analysis-path>" analyzed \
   --phase-data '{
     "agents_dispatched": [
-      {"name": "Reinhard", "focus": "security", "completed_at": "<ISO>"},
-      {"name": "Alex", "focus": "architecture", "completed_at": "<ISO>"}
+      {"name": "a1-reinhard-reviewer", "focus": "security", "completed_at": "<ISO>"},
+      {"name": "a1-alex-architekt", "focus": "architecture", "completed_at": "<ISO>"}
     ]
   }'
 ```
@@ -103,8 +105,8 @@ node ~/.claude/skills/_shared/a1-tools.cjs analyze update-status \
 ## Step 7 — Summarize for the user
 
 > "Analyze complete. <n> findings from <m> sub-agents:
->  - Reinhard: <k> findings (security)
->  - Alex: <k> findings (architecture)
+>  - a1-reinhard-reviewer: <k> findings (security)
+>  - a1-alex-architekt: <k> findings (architecture)
 >  
 >  Should I start Phase 4 (Synthesize — dedup, prioritization)?"
 
