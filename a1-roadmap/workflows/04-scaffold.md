@@ -53,3 +53,27 @@ Start with M1-P1-<name>? [y/n]
 ```
 
 If user says yes: hand off to `a1-plan` with the phase goal from GOAL.md.
+
+## Retro (mandatory, every run)
+
+After every run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-roadmap/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: <short description: new project or new milestone>
+project: <project-slug>
+result: <pass|fail|partial>
+issues: [<relevant tags: vision_unclear, stack_mismatch, milestone_too_big, phase_split_wrong, research_skipped_wrongly, scaffold_collision, ...>]
+what_worked: <one sentence>
+one_line_learning: <what would have prevented the main issue, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-roadmap.md`
+
+A run with no issues is still useful data — write the entry.

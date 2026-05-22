@@ -17,7 +17,7 @@ If preconditions missing, route back to `01-discover.md`.
 ## Step 1 — Construct Alex's brief
 
 Read `DISCOVERY_PAYLOAD_PATH`. Also read the constitution template:
-`a1-specforge/a1-constitution/templates/constitution-template.md`.
+`~/.claude/skills/a1-constitution/templates/constitution-template.md`.
 
 Construct the brief by filling `templates/alex-brief-template.md` with:
 - `<PROJECT_SLUG>` — from payload
@@ -32,7 +32,7 @@ Construct the brief by filling `templates/alex-brief-template.md` with:
 ## Step 2 — Dispatch Alex via the Task tool
 
 Use the `Task` tool with:
-- **subagent_type: `a1-alex-architekt`
+- **subagent_type:** `a1-alex-architekt`
 - **description:** "Draft constitution.md body for <slug>"
 - **prompt:** the fully populated brief from Step 1
 

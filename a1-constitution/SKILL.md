@@ -1,28 +1,27 @@
 ---
 name: a1-constitution
 description: >
-  End-to-end pipeline for generating or updating a project's constitution.md —
-  the per-project behavioral-rules artifact that complements CLAUDE.md (data +
-  context). Enforces clear separation: CLAUDE.md = facts about the project,
-  constitution.md = behavior + 4-Layer Override-Precedence (Global Rules <
-  Project CLAUDE.md < Agent Frontmatter < Session Instruction). Four phases:
-  Discover → Draft → Review → Write. State lives in the vault constitution
-  file's YAML frontmatter and progresses through: discovering → drafted →
-  reviewed → written. Vault is the source of truth at
-  projects/<slug>/constitution/constitution.md; the repo file at
-  <project-root>/constitution.md is a stripped-down mirror written in Phase 4.
-  Old versions are snapshotted under projects/<slug>/constitution/history/
-  before each rewrite. MUST trigger when the user says: "constitution für
-  <projekt>", "generate constitution", "constitution erzeugen", "verhaltensregeln
-  für <projekt>", "override-reihenfolge dokumentieren", "a1-constitution",
-  "update constitution", or asks to define/update the per-project behavioral
-  rules separate from CLAUDE.md. Phase 2 (Draft) dispatches a1-alex-architekt
-  as the domain authority on CLAUDE.md/constitution separation and CC override
-  layers; other phases run in the main thread. Do not activate for: editing
-  CLAUDE.md content itself (manual edit or alex directly), generic project
-  audits (a1-analyze), bug fixes (a1-fix), feature work (a1-new-feature), or
-  compliance reviews of an existing constitution (planned: Reinhard/Tobi in
-  M3 roadmap).
+  Generate or update a project's constitution.md — the per-project behavioral
+  rules artifact that complements CLAUDE.md (which holds facts about the
+  project). Enforces the separation: CLAUDE.md = data + context, constitution.md
+  = behavior + 4-Layer Override-Precedence (Global Rules < Project CLAUDE.md <
+  Agent Frontmatter < Session Instruction). Four phases: Discover → Draft (via
+  a1-alex-architekt) → Review → Write. State lives in the vault constitution's
+  YAML frontmatter (discovering → drafted → reviewed → written). Vault is the
+  single source of truth at projects/<slug>/constitution/constitution.md; the
+  repo file at <project-root>/constitution.md is a derived mirror written in
+  Phase 4. Old versions are snapshotted under
+  projects/<slug>/constitution/history/ before each rewrite. MUST trigger
+  when the user says: "constitution für <projekt>", "generate constitution",
+  "constitution erzeugen", "verhaltensregeln für <projekt>",
+  "override-reihenfolge dokumentieren", "a1-constitution", "update
+  constitution", "behavioral rules für das projekt", "carve rules out of
+  CLAUDE.md", "wir brauchen feste regeln für dieses projekt", or any request
+  to define/update per-project behavioral rules separate from CLAUDE.md. Do
+  NOT activate for: editing CLAUDE.md facts (manual or via Alex directly),
+  generic project audits (use a1-analyze), bug fixes (use a1-fix), feature
+  work (use a1-new-feature), or compliance reviews of an existing
+  constitution (manual via Reinhard with constitution link).
 allowed-tools:
   - Read
   - Write
@@ -50,7 +49,8 @@ a global rule changed and projects need updated override snapshots.
 
 If the user wants to edit CLAUDE.md content (facts about the project), do that
 manually or via Alex directly. If the user wants to audit whether code complies
-with a constitution, that is M3 roadmap (Reinhard/Tobi) — not this skill.
+with a constitution, that is a manual Reinhard/Tobi review with the
+constitution provided as input — not this skill.
 
 ## Phases
 
@@ -161,7 +161,8 @@ After Phase 4, the skill surfaces these recommendations:
   Repo mirror written. Vault file is the source of truth."
 - **Updated constitution:** "History snapshot saved under `history/<date>-v<N>.md`.
   If rules were tightened, Reinhard can manually review recent PRs against the
-  new constitution (constitution-aware review is M3-roadmap, not yet automatic)."
+  new constitution (pass the constitution path explicitly — there is no
+  automatic constitution-aware review yet)."
 - **Missing CLAUDE.md:** Phase 1 soft-blocks. "CLAUDE.md is missing at
   `<repo-root>/CLAUDE.md`. Please create it first from
   `~/.claude/templates/CLAUDE.md.template`, then restart `a1-constitution`."

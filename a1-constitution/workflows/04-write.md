@@ -112,3 +112,27 @@ What you can do next (optional):
   Status stays at `reviewed`.
 - Frontmatter changes only via CLI. Body changes are forbidden in Phase 4.
 - No automatic git operations. the user commits manually when he wants.
+
+## Retro (mandatory, every run)
+
+After every run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-constitution/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: <new constitution | update constitution>
+project: <project-slug>
+result: <pass|fail|partial>
+issues: [<relevant tags: claudemd_missing, alex_incomplete_draft, redraft_loop_long, mirror_write_failed, link_claudemd_failed, vault_drift, interview_too_thin, ...>]
+what_worked: <one sentence>
+one_line_learning: <what would have prevented the main issue, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-constitution.md`
+
+A run with no issues is still useful data — write the entry.

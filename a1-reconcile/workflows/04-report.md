@@ -102,3 +102,27 @@ Wait for the user's decision. **Never auto-trigger another skill.**
 - **User closes the chat before approving Step 6's hand-offs:** the report
   is final on disk (status `reported`), `suggested_next[]` is set in
   frontmatter, no irreversible action was taken. Safe to abandon.
+
+## Retro (mandatory, every run)
+
+After every run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-reconcile/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: <short description of what was reconciled>
+project: <project-slug>
+result: <pass|fail|partial>
+issues: [<relevant tags: false_missing, false_extra, agent_json_failure, spec_parse_gap, repo_path_missing, stale_misclassified, ...>]
+what_worked: <one sentence>
+one_line_learning: <what would have prevented the main issue, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-reconcile.md`
+
+A run with no issues is still useful data — write the entry.

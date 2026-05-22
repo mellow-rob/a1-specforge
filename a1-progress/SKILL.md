@@ -1,10 +1,20 @@
 ---
 name: a1-progress
 description: >
-  Check project progress, show what's done/in-progress/blocked, and route to the right next action.
-  MUST trigger when the user says: "progress", "status", "was ist der stand", "wie weit sind wir",
-  "a1-progress", "what's next", "was kommt als nächstes", "wo stehen wir", "projekt status",
-  "show progress", or any request to understand the current state of a project.
+  Project progress snapshot + routing — scans .a1/ state (roadmap, phases,
+  PLAN/STATUS/VERIFICATION) plus git/test/build state, presents a structured
+  status overview, and recommends the next a1-skill to run. Read-only, no
+  sub-agents, no edits. Works at any level: single phase, milestone, or full
+  project. MUST trigger when the user says: "progress", "status", "was ist
+  der stand", "wie weit sind wir", "a1-progress", "what's next", "was kommt
+  als nächstes", "wo stehen wir", "projekt status", "show progress", "where
+  are we", "what should I do next", "was läuft gerade", "was ist blockiert",
+  "was ist done", "phase status", or any request to understand the current
+  state of a project or get a next-step recommendation. Do NOT activate for:
+  planning a new project (use a1-roadmap), planning a phase (use a1-plan),
+  executing a phase (use a1-execute), or fixing a bug (use a1-fix). This
+  skill only reports and routes — it never plans, executes, or modifies
+  anything.
 allowed-tools:
   - Read
   - Bash

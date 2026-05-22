@@ -37,7 +37,7 @@ Parse JSONL for granular pattern data not yet summarized in retros.
 From `$VAULT/areas/a1-learnings/patterns.md` frontmatter `updated:` field.
 Only process entries newer than that date to avoid double-counting.
 
-### 1d. Summarize what was collected
+### 1e. Summarize what was collected
 Output:
 ```
 Collected:

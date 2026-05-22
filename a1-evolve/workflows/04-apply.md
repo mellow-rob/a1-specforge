@@ -79,3 +79,27 @@ Committed: feat(<hash>)
 
 Next evolution: after ~5 more skill runs.
 ```
+
+## Retro (mandatory, every run)
+
+After every run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-evolve/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: synthesize learnings → propose+apply improvements
+project: a1-skills (meta)
+result: <pass|fail|partial>
+issues: [<relevant tags: low_signal, false_pattern, diff_too_big, vault_index_stale, threshold_too_loose, threshold_too_tight, ...>]
+what_worked: <one sentence>
+one_line_learning: <what would have prevented the main issue, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-evolve.md`
+
+A run with no issues is still useful data — write the entry.

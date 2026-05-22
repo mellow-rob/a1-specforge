@@ -1,12 +1,22 @@
 ---
 name: a1-evolve
 description: >
-  Self-optimization engine for the a1 skill set. Reads accumulated observations and
-  _learning.md files across all skills, clusters recurring patterns, and proposes
-  concrete improvements to SKILL.md and agent files. MUST trigger when the user says:
-  "a1-evolve", "skills verbessern", "learnings auswerten", "was können wir verbessern",
-  "skill optimization", "retros auswerten", or when a1-execute reports 5 accumulated
-  learnings. Also runs automatically as part of checkpoint after every 5th learning entry.
+  Self-optimization engine for the a1 skill set. Reads accumulated observations
+  (`.a1/phases/*/observations.jsonl`) and per-skill _learning.md files plus the
+  Obsidian Vault `areas/a1-learnings/*.md`, clusters recurring patterns, scores
+  by impact (frequency × severity), and proposes concrete diff-level
+  improvements to agent files and SKILL.md / workflow files. Four phases:
+  Collect → Cluster → Propose → Apply (with user confirmation per diff).
+  Confidence thresholds: 1-2 occurrences = monitor, 3-4 = propose, 5+ =
+  high-confidence. Commits applied changes to ~/code/a1-skills/. MUST trigger
+  when the user says: "a1-evolve", "skills verbessern", "learnings auswerten",
+  "was können wir verbessern", "skill optimization", "retros auswerten",
+  "synthesize learnings", "pattern analysis", "improve the a1 skills",
+  "evolve the agents", or when a1-execute reports 5+ accumulated learnings
+  since last synthesis. Scope: only edits files in ~/code/a1-skills/ — never
+  touches ~/.claude/rules/ (user-authored). Do NOT activate for: a single
+  retro entry (just write it via the host skill's Retro block), planning new
+  features (use a1-new-feature), or routine project execution.
 allowed-tools:
   - Read
   - Write

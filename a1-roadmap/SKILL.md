@@ -1,12 +1,22 @@
 ---
 name: a1-roadmap
 description: >
-  Create and manage project roadmaps — milestones, phases, and project scaffolding.
-  Produces a roadmap.md and initializes .a1/ structure. MUST trigger when the user says:
-  "neues projekt", "new project", "roadmap erstellen", "a1-roadmap", "milestones planen",
-  "projekt aufsetzen", "project setup", "meilensteine", "milestone plan erstellen",
-  "neue milestone", "new milestone", or any request to plan a project from scratch or
-  add a new milestone to an existing project.
+  Create and manage project roadmaps — break a product vision into milestones,
+  phases, and a scaffolded .a1/ directory ready for a1-plan. Four phases:
+  Discover (interview vision) → Research (a1-rico-researcher domain scan) →
+  Structure (milestones + phases breakdown) → Scaffold (write .a1/roadmap.md +
+  per-phase GOAL.md). Two modes: new-project (full flow) and new-milestone
+  (abbreviated, skips research if stack unchanged). MUST trigger when the
+  user says: "neues projekt", "new project", "roadmap erstellen", "a1-roadmap",
+  "milestones planen", "projekt aufsetzen", "project setup", "meilensteine",
+  "milestone plan erstellen", "neue milestone", "new milestone", "projekt von
+  null aufsetzen", "wie strukturieren wir das projekt", "plan the project from
+  scratch", "break this product into milestones", or any request to plan a
+  project from scratch or add a new milestone to an existing project. Hands
+  off to a1-plan once the first phase is scaffolded. Do NOT activate for:
+  planning a single phase that already exists (use a1-plan), checking project
+  status (use a1-progress), feature ideas without a project (use
+  a1-new-feature), or constitution/rules (use a1-constitution).
 allowed-tools:
   - Read
   - Write
@@ -14,7 +24,7 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
-  - Agent
+  - Task
 ---
 
 # a1-roadmap — Project & Milestone Planning

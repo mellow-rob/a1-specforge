@@ -1,27 +1,26 @@
 ---
 name: a1-reconcile
 description: >
-  Spec-vs-implementation drift detection. Compares a feature's spec (Acceptance
-  Criteria, referenced files/functions/endpoints) against the actual state of
-  the repository and produces a drift report with four classes: MISSING (spec
-  asks, code lacks), EXTRA (code has, spec is silent), DIVERGED (both exist but
-  signatures or paths differ), STALE (spec status=shipped but spec was updated
-  after the last code touch). Four phases: Scope → Parse → Probe → Report.
-  State lives in the drift report's YAML frontmatter and progresses through:
-  scoped → parsed → probed → reported. Reports are stored in the Obsidian Vault
-  under projects/<slug>/drift-<YYYY-MM-DD>[-N].md. Three trigger modes: single
-  (one spec), project (all specs of a project), vault-sync (all projects, for
-  weekly cron). MUST trigger when the user says: "drift check für <projekt>",
-  "spec vs implementation", "reconcile <projekt>", "a1-reconcile", "is the code
-  still in sync with the spec", "spec-drift", "passt der code noch zur spec",
-  "implementation drift", or any request to check whether what was specified
-  matches what was actually built. This skill orchestrates sub-agents
-  (a1-marco-mapper for structural probing, Alex for architecture drift); it
-  does NOT modify project code, never edits specs. Do not activate for: generic
-  codebase audits without spec anchor (use a1-analyze), structural spec↔plan
-  consistency (use a1-check, which is deterministic and CLI-only), bug reports
-  (use a1-fix), new feature work (use a1-new-feature), or PR review (use
-  Reinhard directly).
+  Spec-vs-implementation drift detection — checks whether what a spec promised
+  actually exists in the code. Produces a drift report classifying findings as
+  MISSING (spec asks, code lacks), EXTRA (code has, spec silent), DIVERGED
+  (signatures/paths differ), or STALE (spec updated after last code touch).
+  Four phases: Scope → Parse → Probe → Report. State persisted in the drift
+  report's YAML frontmatter (scoped → parsed → probed → reported). Reports
+  stored in Obsidian Vault at projects/<slug>/drift-<YYYY-MM-DD>[-N].md. Three
+  modes: single (one spec), project (all specs), vault-sync (weekly cron).
+  MUST trigger when the user says: "drift check", "spec vs implementation",
+  "spec vs code", "reconcile <projekt>", "a1-reconcile", "is the code still
+  in sync with the spec", "spec-drift", "passt der code noch zur spec",
+  "implementation drift", "what did we ship vs what we specified",
+  "pre-release audit", "stimmt spec und code noch überein", "habe ich alles
+  gebaut was in der spec steht", or any request to verify spec/code alignment.
+  Orchestrates sub-agents (a1-marco-mapper for structural probing, Alex for
+  architecture-level DIVERGED); read-only — never modifies project code or
+  specs. Do NOT activate for: generic codebase audits without spec anchor
+  (use a1-analyze), structural spec↔plan consistency (use a1-check), bug
+  reports (use a1-fix), new feature work (use a1-new-feature), or PR review
+  (use Reinhard directly).
 allowed-tools:
   - Read
   - Write
