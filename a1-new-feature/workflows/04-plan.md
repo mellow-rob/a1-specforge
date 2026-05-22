@@ -88,11 +88,28 @@ Use the **Agent** tool with `subagent_type: "a1-vincente-vibe-optimizer"` and
 >   Relative hrefs from a list page can double the segment — use `${id}/` not
 >   `list/${id}/`.
 >
+> **FRs covered format (mandatory):**
+> Do not write bare FR lists. Each FR entry must include one behavioral AC sentence:
+> ```
+> **FRs covered:**
+> - FR-001 — AC: After [action], [user/system] sees/gets [result]
+> - FR-002 — AC: After [action], [user/system] sees/gets [result]
+> ```
+> "AC: see spec" or "AC: works correctly" are not valid — write the behavior explicitly.
+>
+> **Deployment chain (mandatory per wave):**
+> Explicitly state for each wave:
+> - **DB migrations:** none / [list migration files — must be created in THIS wave, not a later one]
+> - **RLS / grants:** none / [list affected policies and grant statements]
+> - **ENV vars:** none / [list new vars — must appear in .env.example in THIS wave]
+> - **Services to restart after deploy:** none / [e.g. PostgREST Cloud Run, Cloud Functions]
+>
 > **Hard rules:**
 > - Every FR must land in exactly one wave.
 > - No wave without an explicit acceptance reference.
 > - If a wave carries > 5 FRs: split into two waves.
 > - If the right agent is unclear: suggest with comment `(uncertain: …)`.
+> - No wave may introduce a DB schema change without a migration task in that same wave.
 >
 > When done: report "Wave plan complete: N waves, M FRs distributed, K parallelizable."
 
@@ -107,18 +124,9 @@ node ~/.claude/skills/_shared/a1-tools.cjs spec update-status \
 
 Helper sets `wave_plan_path` and appends `phase: plan, completed: <iso>` to `phase_history`.
 
-## Step 4 — Sanity check (structural)
-
-The structural FR↔Wave consistency check has been moved into its own gate
-(Phase 4.5). You no longer need to grep FR counts here. Only verify the
-human-readable bits that the gate does **not** cover:
-
-- Every Wave has `Suggested agent(s)`.
-- Dependencies form a DAG (no cycles, no Wave that depends on a later Wave).
-
-If either fails, ask Vincente to revise before handing off.
-
 ## Hand-off to Phase 4.5 (Consistency Gate)
+
+Before handing off: confirm every wave has `Suggested agent(s)` and dependencies form a DAG (no cycles, no wave depending on a later one). If either fails, ask Vincente to revise.
 
 Tell the user:
 

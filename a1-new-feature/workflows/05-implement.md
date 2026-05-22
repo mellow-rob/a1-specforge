@@ -97,16 +97,20 @@ vercel   # creates preview URL
 
 Record the preview URL for Gate 3 and for Phase 6. Never skip, even for "just a small fix".
 
-**Gate 3 — Smoke test of the wave goal story**
+**Gate 3 — Smoke test: FR-ACs + wave goal**
 
-The wave brief contains `**Goal:** after this wave, X works`. Test exactly that X
-against the preview URL — manually or via Playwright. Specifically:
+The wave brief lists `**FRs covered:**` with one AC sentence per FR. Gate 3 checks **each FR-AC**, not just the wave goal story.
 
-- If the wave delivers a new UI route: open it, check that it loads (no 404/500).
-- If the wave delivers an API route: send a real request (curl or browser DevTools),
-  check the response body and HTTP status code.
-- If the wave combines client + API: run through the complete user flow once
-  (click, submit, see result).
+For each FR-AC in this wave:
+- Trigger the described action against the preview URL (manually or via Playwright/curl).
+- Confirm the described result is observable.
+
+Additionally check the wave goal story:
+- If the wave delivers a new UI route: open it, confirm no 404/500.
+- If the wave delivers an API route: send a real request, check response body and HTTP status.
+- If the wave combines client + API: run through the complete user flow once.
+
+If an FR-AC sentence is vague ("AC: works correctly"): flag it, ask the user to clarify, do not mark Gate 3 green.
 
 On smoke test failure: wave is `failed`, not `done`. Continue with the failure flow below.
 

@@ -132,6 +132,38 @@ Status stays `implementing`. Tell the user:
 
 Do not advance to `done` until all failures are resolved and a re-verify is green.
 
+## Step 6 — Retro (mandatory, every run)
+
+After every Phase 6 run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+
+**Create local cache file if it does not exist, then append:**
+
+```bash
+cat >> ~/.claude/skills/a1-new-feature/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+spec: <###>-<feature-slug>
+project: <project-slug>
+result: <pass|fail>
+bugs_found_in_verify: <N>
+bug_classes: [<from: missing_wiring, wrong_behavior_vs_spec, deployment_incomplete, schema_flaw, regression, spec_omission>]
+gate_that_caught_most: <Gate 1|Gate 2|Gate 3|Phase 6|none>
+phase_that_produced_most_bugs: <spec|plan|implement|verify>
+one_line_learning: <what would have prevented the main failure, or "no failures">
+EOF
+```
+
+**Append the same entry to the Vault:**
+
+```
+~/Documents/Obsidian Vault/areas/a1-learnings/a1-new-feature.md
+```
+
+Use the `bug_classes` tags consistently — they feed into `patterns.md` clustering:
+`missing_wiring` | `wrong_behavior_vs_spec` | `deployment_incomplete` | `schema_flaw` | `regression` | `spec_omission`
+
+A run with zero bugs is still useful data — write the entry with `bugs_found_in_verify: 0`.
+
 ## Optional — Tobi audit
 
 If the user wants a deeper audit before declaring done, spawn `a1-tobi-tester` with this
