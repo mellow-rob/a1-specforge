@@ -1,23 +1,20 @@
 ---
 name: a1-worktree
 description: >
-  Lifecycle manager for isolated Git worktrees. Lets agents work on a feature
-  branch in a parallel checkout without polluting the main working tree. Three
-  phases: Prepare (pre-flight: clean tree, branch free, slug valid) → Enter
-  (`git worktree add` + handoff brief) → Exit (commit-check, then `keep`,
-  `discard`, or `handoff` to a1-pr-review). State persists in a user-global
-  registry at `~/.a1-worktrees-registry.json`. Worktrees live at
-  `<repo-parent>/a1-worktrees/<slug>/`. Branches default to `feature/<slug>`,
-  overridable via `--branch`. MUST trigger when the user says: "worktree für
-  <feature>", "isolierter branch für <feature>", "a1-worktree", "neuen
-  worktree anlegen", "agent in worktree arbeiten lassen", "worktree aufräumen",
-  "worktree exit", "worktree handoff", "worktree für PR vorbereiten", or any
-  request to spawn, manage, or tear down an isolated working copy for agent
-  work. Distinct from a1-new-feature (which produces specs/plans) — this skill
-  manages the git working copy in which those plans get implemented. Do not
-  activate for: ordinary git branch management without worktree isolation,
-  worktree operations outside the registry (raw `git worktree` commands), or
-  PR creation (use a1-pr-review when shipped in M3).
+  Isolated Git worktree lifecycle: Prepare → Enter → Exit (keep/discard/handoff).
+  Lets agents work on a feature branch in a parallel checkout without polluting
+  the main tree. Registry at `~/.a1-worktrees-registry.json`, worktrees at
+  `<repo-parent>/a1-worktrees/<slug>/`, branches default `feature/<slug>`.
+  MUST trigger when the user says: "worktree für <feature>", "isolierter
+  branch", "a1-worktree", "neuen worktree anlegen", "worktree aufräumen",
+  "worktree exit", "worktree handoff", "worktree für PR vorbereiten",
+  "experimentell entwickeln", "agent in worktree arbeiten lassen", or any
+  request to spawn, manage, or tear down an isolated working copy.
+  Distinct from a1-new-feature (which produces specs/plans). Hands off to
+  a1-pr-review when exited with `--mode handoff`.
+  Do NOT activate for: ordinary `git checkout <branch>` without parallelism,
+  raw `git worktree` commands outside the registry, or PR creation
+  (use a1-pr-review).
 allowed-tools:
   - Read
   - Bash
@@ -39,7 +36,7 @@ operate in a worktree so the user's main checkout stays untouched.
 ## When NOT to use
 
 - Ordinary `git checkout <branch>` workflows where no parallelism is needed.
-- PR creation, review, merge — those belong to `a1-pr-review` (M3).
+- PR creation, review, merge — those belong to `a1-pr-review`.
 - Direct `git worktree` operations the user wants to run themselves outside
   the registry.
 
@@ -87,7 +84,7 @@ Override registry location via `A1_WORKTREE_REGISTRY` env var (used in tests).
 |---|---|
 | `keep` | Worktree removed, branch kept. Use when feature continues on `main` checkout. |
 | `discard` | Worktree removed, branch deleted. Only allowed if branch has no unmerged commits. Otherwise CLI refuses. |
-| `handoff` | Worktree stays, registry status set to `handoff`. Signals to `a1-pr-review` (M3) that the branch is ready for PR review. |
+| `handoff` | Worktree stays, registry status set to `handoff`. Signals to `a1-pr-review` that the branch is ready for PR review. |
 
 ## Agent integration
 
@@ -113,6 +110,6 @@ None. This skill is pure lifecycle management. Other skills (notably
   Phase 2).
 - Enter complete → worktree path is returned to the caller (usually the user
   or another skill). The implementing agent then operates inside that path.
-- Exit `handoff` → `a1-pr-review` (M3) takes over. The registry entry remains
+- Exit `handoff` → `a1-pr-review` takes over. The registry entry remains
   with status `handoff` until that skill clears it.
 - Exit `keep` / `discard` → terminal. Registry entry status `cleaned`.

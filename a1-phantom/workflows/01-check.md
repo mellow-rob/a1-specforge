@@ -2,7 +2,7 @@
 phase: 01-check
 purpose: Run phantom detection on a PLAN.md and translate the JSON report into a German summary for the user.
 inputs:
-  - plan_path: absolute path to a GSD-style PLAN.md
+  - plan_path: absolute path to an a1-style PLAN.md
   - repo_path (optional): absolute path to the git repo containing the implementation. Default: nearest .git ancestor of plan_path.
   - since (optional): git ref for the left side of the diff. Default: parent of the commit that last modified plan_path.
 outputs:
@@ -28,7 +28,7 @@ Before invoking the CLI:
 ## Step 2 — Invoke the CLI
 
 Run with `--format human` for direct user output, or `--format json` when
-embedded in another workflow (e.g. phase-verifier).
+embedded in another workflow (e.g. a1-verifier).
 
 ```bash
 node ~/.claude/skills/_shared/a1-tools.cjs phantom check "<plan_path>" \
@@ -81,3 +81,27 @@ phantom report is the deliverable.
 - **PLAN.md never committed** (still in the working tree only). The
   default `--since` walk falls back to `HEAD~20`. Mention this in the
   report so the user knows the baseline is approximate.
+
+## Retro (mandatory, every run)
+
+After every run — clean or phantoms_found — write one structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-phantom/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: <short description, e.g. "phantom check on M3-P1 PLAN">
+project: <project-slug>
+result: <clean|phantoms_found|cli-error>
+issues: [<relevant tags, e.g. false-positive, missing-no-code-tag, since-too-wide, no-extractable-keywords>]
+what_worked: <one sentence>
+one_line_learning: <what would have prevented the main issue, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-phantom.md`
+
+A run with no issues is still useful data — write the entry. Even a clean check helps tune false-positive rates over time.

@@ -1,27 +1,21 @@
 ---
 name: a1-pr-review
 description: >
-  End-of-lifecycle skill that turns a finished feature branch into a
-  reviewed Pull Request. Picks up worktrees in `status: handoff` from the
-  a1-worktree registry (`~/.a1-worktrees-registry.json`), spawns the
-  `a1-reinhard-reviewer` sub-agent for a structured code review, prepares a PR-Draft
-  (title + body following conventional commits + a1-reinhard-reviewer findings) and,
-  after user confirmation, opens the PR via `gh pr create`. Four phases:
-  Detect (scan registry) → Review (a1-reinhard-reviewer, findings as JSON) → Draft
-  (build PR title + body) → Submit (gh + registry update). BLOCKER
-  findings halt the flow before submit; MAJOR findings are surfaced in
-  the PR body under "Known Issues"; MINOR findings stay internal as
-  inline review comment suggestions. MUST trigger when the user says:
-  "pr review für <slug>", "a1-pr-review", "review meinen worktree", "pr
-  draften", "a1-reinhard-reviewer auf <slug> ansetzen", "feature ist fertig, PR
-  aufmachen", "worktree zur review", "code review + PR", or any request
-  to wrap up a handoff-state worktree into a Pull Request. Distinct from
-  `a1-worktree` (manages the working copy lifecycle) and `a1-check` /
-  `a1-checklist` (pre-implementation gates). This skill runs strictly
-  AFTER implementation, on a branch that already contains commits. Do
-  not activate for: raw `gh pr create` requests without review, generic
-  code-review-only tasks (call `a1-reinhard-reviewer` directly), worktrees still in
-  `active` status (must exit to `handoff` first via a1-worktree).
+  Turns a finished feature branch into a reviewed Pull Request. Four phases:
+  Detect (scan a1-worktree registry for `handoff`) → Review (spawn
+  a1-reinhard-reviewer, findings JSON) → Draft (PR title+body) → Submit
+  (`gh pr create`). BLOCKER findings halt; MAJOR go into PR body "Known
+  Issues"; MINOR stay as inline comment suggestions.
+  MUST trigger when the user says: "pr review für <slug>", "a1-pr-review",
+  "review meinen worktree", "pr draften", "pr aufmachen", "feature ist
+  fertig, PR aufmachen", "worktree zur review", "code review + PR",
+  "reinhard auf <slug> ansetzen", or any request to wrap a handoff-state
+  worktree into a Pull Request.
+  Runs strictly AFTER implementation on a branch that has commits.
+  Do NOT activate for: raw `gh pr create` without review (use gh directly),
+  generic code-review-only (call a1-reinhard-reviewer directly), worktrees
+  still in `active` status (run a1-worktree exit --mode handoff first), or
+  branches that already have an open PR.
 allowed-tools:
   - Read
   - Bash

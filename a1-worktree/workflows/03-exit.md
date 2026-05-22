@@ -44,9 +44,9 @@ node ~/.claude/skills/_shared/a1-tools.cjs worktree status <id>
 
 Show the user:
 
-- `commit_count` — wieviele Commits seit Base-Branch
-- `has_uncommitted` — gibt es noch ungespeicherte Änderungen?
-- `branch_ahead` — wieviele Commits ahead of base
+- `commit_count` — number of commits since base branch
+- `has_uncommitted` — uncommitted changes still present?
+- `branch_ahead` — number of commits ahead of base
 
 If `has_uncommitted=true`:
 
@@ -98,3 +98,27 @@ and no `--force-discard`), 2 on internal error.
 - Never delete a branch outside the CLI. Registry must stay consistent.
 - After `handoff`, this skill is done. Do not call `a1-pr-review` directly —
   inform the user and let them invoke it.
+
+## Retro (mandatory, every run)
+
+After every run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+
+**To local cache:**
+```bash
+cat >> ~/.claude/skills/a1-worktree/_learning.md <<'EOF'
+---
+date: <YYYY-MM-DD>
+task: <short description, e.g. "worktree für auth-rework, exit handoff">
+project: <project-slug>
+result: <pass|fail|partial>
+issues: [<relevant tags, e.g. prepare-blocker, dirty-tree, branch-collision, handoff-clean>]
+what_worked: <one sentence>
+one_line_learning: <what would have prevented the main issue, or "no issues">
+EOF
+```
+
+**To Vault:**
+Append the same entry to:
+`~/Documents/Obsidian Vault/areas/a1-learnings/a1-worktree.md`
+
+A run with no issues is still useful data — write the entry.

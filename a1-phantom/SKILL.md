@@ -1,18 +1,20 @@
 ---
 name: a1-phantom
 description: >
-  Phantom-Task detection for GSD-style PLAN.md files. Identifies completed
-  `[X]` checkbox tasks that have no corresponding code-change in the repo's
-  git history — i.e. the box was ticked but nothing actually shipped. Pure
-  warning-level: never blocks, always returns 0, the report is informational.
-  Tasks tagged inline with `# no-code` (docs-only, manual ops, etc.) are
-  skipped. MUST trigger when the user says: "phantom check", "phantom-task
-  detection", "a1-phantom", "prüfe PLAN auf phantom tasks", "check completed
-  tasks have code", "verify work was done", or when an upstream verifier
-  (e.g. phase-verifier) asks for phantom detection as part of phase
-  verification. Do NOT activate for: full goal verification (phase-verifier
-  owns that), code review (a1-reinhard-reviewer), or anti-pattern scans of source files
-  (a1-analyze / phase-verifier Step 7).
+  Phantom-Task detection for a1-style PLAN.md files. Identifies completed
+  `[X]` checkbox tasks that have NO corresponding code-change in the repo's
+  git history — i.e. the box was ticked but nothing actually shipped.
+  Warning-level only: never blocks, always exits 0, report is informational.
+  Tasks tagged `# no-code` (docs-only, manual ops) are skipped.
+  MUST trigger when the user says: "phantom check", "phantom-task detection",
+  "a1-phantom", "prüfe PLAN auf phantom tasks", "wurde das wirklich gebaut",
+  "wurde das alles wirklich gemacht", "check completed tasks have code",
+  "verify work was done", "scheinerfolge prüfen", "wurden alle haken zu
+  recht gesetzt", or when an upstream verifier (e.g. a1-verifier) requests
+  phantom detection as part of phase verification.
+  Do NOT activate for: full goal verification (a1-verifier owns that), code
+  review (a1-reinhard-reviewer), spec-drift (a1-reconcile), or anti-pattern
+  scans of source files (a1-analyze).
 allowed-tools:
   - Bash
   - Read
@@ -28,9 +30,9 @@ are reported as phantoms.
 
 ## When to use
 
-- A GSD phase claims to be done — verify no checkboxes were ticked
+- An a1 phase claims to be done — verify no checkboxes were ticked
   without corresponding code.
-- phase-verifier Step 6.5 (phantom detection): the verifier shells out to this
+- a1-verifier Step 6.5 (phantom detection): the verifier shells out to this
   CLI and folds the report into its VERIFICATION.md.
 - Manual sanity check before a phase hand-off, PR, or release.
 
@@ -135,9 +137,9 @@ or mark it `# no-code`.
 Never auto-edit PLAN.md from this skill. Never invoke a sub-agent. The
 caller decides next steps.
 
-## Caller integration: phase-verifier
+## Caller integration: a1-verifier
 
-When phase-verifier runs phase verification, it can insert a Phantom
+When a1-verifier runs phase verification, it can insert a Phantom
 Detection step between Requirements Coverage (Step 6) and Anti-Pattern Scan
 (Step 7) by shelling out:
 
