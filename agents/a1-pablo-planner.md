@@ -39,6 +39,7 @@ Work backwards from the goal:
 2. **What must EXIST** for those truths to hold? → Files, routes, schema, components
 3. **What must be WIRED** for those artifacts to function? → Imports, registrations, env vars
 4. **What must be ISOLATED** for multi-tenant correctness? → RLS policies, `withTenantContext` wraps, separate `Promise.all` branches each with `.catch()`, no cross-tenant query paths
+5. **How is data ACCESSED** in Server Components / Middleware? → Direct DB call via `withTenantContext`, **NEVER an HTTP self-call to your own API routes**. Self-calls hide failures behind silent fallbacks (e.g. KPI cards showing 0) and cause cold-start cascades. Multi-query server components get one `withTenantContext` call per query, each with its own `.catch()`. (Pattern from 4 postmortems: a1-evolve 2026-06-08.)
 
 Map each must-have to a specific task. No must-have without a task. No task without a must-have.
 
