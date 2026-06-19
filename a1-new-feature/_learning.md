@@ -99,3 +99,190 @@ Parallel work on meal-swap flow (Wochenplan tab) and onboarding (step 5/6) uncov
 
 Learning: Navigation specs for multi-screen flows must include a **context propagation matrix** listing every route, what context it receives, how it resolves defaults, and what it passes to children.
 
+---
+date: 2026-06-19
+spec: 015-agent-space
+project: n3ural-platform
+result: pass
+waves_total: 4
+bugs_found_in_verify: 2
+bug_classes: [parallel_collision, agent_self_report_false]
+gate_that_caught_most: Phase 6
+phase_that_produced_most_bugs: implement
+one_line_learning: Verify fing 2 Branch-Hygiene-Lücken (veralteter dist täuschte roten main; 2 neue Lint-Errors) — Pre-Merge-Rebase + Lint-only-auf-eigene-Dateien hätte sie früher gefangen
+---
+date: 2026-06-19
+spec: 016-capability-mediation-layer
+project: n3ural-platform
+result: pass
+waves_total: 9
+bugs_found_in_verify: 2
+bug_classes: [parallel_collision, wrong_behavior_vs_spec, gate_friction, agent_self_report_false]
+gate_that_caught_most: Phase 6
+phase_that_produced_most_bugs: implement
+one_line_learning: Consistency-Gate FAILte 2× durch FR-Token in narrativen Wave-Zeilen; Verify fing Migr-Nummern-Kollision (Spec 017 parallel) + Dashboard-Query die kompilierte aber leer lieferte — Gate-0-Selbstverifikation + Pre-Merge-Migr-Check eingebaut
+---
+date: 2026-06-03
+spec: 001-crm-saas-foundation
+project: n3ural-platform
+result: pass
+waves_total: 9
+bugs_found_in_verify: 2
+bug_classes: [schema_flaw, deployment_incomplete]
+gate_that_caught_most: Gate 3
+phase_that_produced_most_bugs: implement
+one_line_learning: withTenantContext leakt Connections als "idle in transaction" (35min, blockierte CONCURRENTLY-Index+VACUUM) — Connection-Hygiene gehört in den Wave-Brief bei CONCURRENTLY-Migrationen
+---
+date: 2026-06-03
+spec: 002-crm-pipeline-normalization
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 1
+bug_classes: [spec_omission, deployment_incomplete]
+gate_that_caught_most: Phase 6
+phase_that_produced_most_bugs: verify
+one_line_learning: Spec war "done" aber geplante Integration-Tests fehlten (Phantom-Gap) — Phase 6 muss prüfen ob die im Plan zugesagten Tests real existieren, nicht nur ob Code läuft
+---
+date: 2026-06-03
+spec: 003-crm-activities-consolidation
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 0
+bug_classes: [schema_flaw]
+gate_that_caught_most: none
+phase_that_produced_most_bugs: implement
+one_line_learning: Apply-Pattern bewährt — voller Dry-Run der Migrations-Kette in EINER BEGIN/ROLLBACK gegen Prod-Schema (BEGIN/COMMIT der Files via awk strippen), dann backup → echtes Apply
+---
+date: 2026-06-04
+spec: 004-crm-billing-completion
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 1
+bug_classes: [schema_flaw]
+gate_that_caught_most: Gate 3
+phase_that_produced_most_bugs: implement
+one_line_learning: time_entries hatte KEINEN audit_row-Trigger (nur update_project_timestamp) — Audit-Trigger-Existenz pro mutierter Tabelle muss im Plan explizit geprüft werden, sonst fehlt GoBD-Audit still
+---
+date: 2026-06-04
+spec: 005-crm-custom-fields-activation
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 0
+bug_classes: []
+gate_that_caught_most: none
+phase_that_produced_most_bugs: implement
+one_line_learning: no failures — Custom-Fields JSONB-Aktivierung sauber durch
+---
+date: 2026-06-04
+spec: 006-crm-pipeline-contract
+project: n3ural-platform
+result: pass
+waves_total: 2
+bugs_found_in_verify: 1
+bug_classes: [deployment_incomplete, regression]
+gate_that_caught_most: Phase 6
+phase_that_produced_most_bugs: implement
+one_line_learning: Contract-Phase (Spalte droppen) braucht 2-PR-Split + strikte Deploy-Reihenfolge (Code deployt Ready DANN Migration) — sonst Outage; PostgREST !inner Pflicht sonst leaken won/lost
+---
+date: 2026-06-15
+spec: 007-feedback-widget
+project: n3ural-platform
+result: pass
+waves_total: 4
+bugs_found_in_verify: 0
+bug_classes: [deployment_incomplete]
+gate_that_caught_most: none
+phase_that_produced_most_bugs: implement
+one_line_learning: no failures — HTTP-Contract sauber dokumentiert (POST /api/feedback/ mit trailing slash); Migration 070 als manueller Robert-Schritt offen (Dry-Run lief)
+---
+date: 2026-06-16
+spec: 008-project-types
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 0
+bug_classes: [schema_flaw]
+gate_that_caught_most: none
+phase_that_produced_most_bugs: implement
+one_line_learning: Expand→Migrate→Contract sauber (projects.type-Spalte bleibt, Dual-Write); zentrales Behavior-Mapping (billing-method.ts) statt verstreuter Enum-Logik; AFTER-INSERT-Trigger seedet neue Tenants automatisch
+---
+date: 2026-06-16
+spec: 009-business-modul-edit-manage-completeness
+project: n3ural-platform
+result: pass
+waves_total: 4
+bugs_found_in_verify: 2
+bug_classes: [missing_wiring, wrong_behavior_vs_spec]
+gate_that_caught_most: Gate 3
+phase_that_produced_most_bugs: implement
+one_line_learning: Tobi-Audit-Muster "API existiert, UI fehlt" + DELETE-Route gab immer 409 + Partner-CRUD war nur GET — vollständige CRUD-Surface (nicht nur Read) pro Entity im Clarify-Scan prüfen
+---
+date: 2026-06-16
+spec: 010-pipeline-flow-enforcement
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 2
+bug_classes: [wrong_behavior_vs_spec, schema_flaw]
+gate_that_caught_most: Gate 3
+phase_that_produced_most_bugs: implement
+one_line_learning: Bidirektionale Zustands-Kopplung (Won≡Accepted) braucht beidseitige "already in target state"-Guards + direkten client.query (kein HTTP/Trigger zwischen Routen) gegen Loops; invoice declined-Enum-Bug
+---
+date: 2026-06-17
+spec: 011-dual-logo-branding
+project: n3ural-platform
+result: pass
+waves_total: 5
+bugs_found_in_verify: 1
+bug_classes: [wrong_behavior_vs_spec]
+gate_that_caught_most: Gate 3
+phase_that_produced_most_bugs: implement
+one_line_learning: PDFKit kann kein SVG/WEBP — Logo-Pfade brauchen Format-Guard (nur PNG/JPEG) + 5s-Timeout + Text-Fallback; PDF immer Hell-Logo (weißes Papier)
+---
+date: 2026-06-17
+spec: 012-deal-category-tag
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 1
+bug_classes: [schema_flaw, regression]
+gate_that_caught_most: Gate 1
+phase_that_produced_most_bugs: implement
+one_line_learning: GIT-CHAOS-Lesson (Parallel-Branch-Isolation) — bei paralleler Arbeit IMMER frisch von main branchen, selektiv stagen, nie fremde Git-Arbeit rebasen; 1-Pflicht-Tag via direkte FK (nicht n:m taggings), kind-Trennung deal/activity
+---
+date: 2026-06-17
+spec: 013-agentic-layer-klaus
+project: n3ural-platform
+result: pass
+waves_total: 8
+bugs_found_in_verify: 6
+bug_classes: [missing_wiring, wrong_behavior_vs_spec, deployment_incomplete, schema_flaw]
+gate_that_caught_most: Phase 6
+phase_that_produced_most_bugs: implement
+one_line_learning: Mocks färbten kaputten Code 3× grün (RLS-Read umging withTenantContext; Confirm-Bypass; ReadPort→WritePort-Miscast) — nur echte Test-DB + echte LLM-Calls fanden die 6 Live-Bugs (Tool-Namen-Punkt, Reasoning-Stream-leer, maxDuration-Override, agent_id-FK-String); bei OpenAI-kompat-Providern keine Punkte in Tool-Namen
+---
+date: 2026-06-18
+spec: 014-durable-workflow-engine
+project: n3ural-platform
+result: pass
+waves_total: 6
+bugs_found_in_verify: 1
+bug_classes: [env_issue, spec_omission]
+gate_that_caught_most: Phase 6
+phase_that_produced_most_bugs: verify
+one_line_learning: Integration-Tests grün nur mit DATABASE_URL=...?sslmode=disable (Code nutzt withTenantContext→DATABASE_URL, nicht PG*-Vars; Cloud-SQL-Proxy spricht kein SSL); offene E2E-Lücke (markSent-Effekt im Test umgangen) vor Produktiv-Einsatz als echter Smoke nachholen
+---
+date: 2026-06-19
+spec: 017-agent-model-switch
+project: n3ural-platform
+result: pass
+waves_total: 5
+bugs_found_in_verify: 0
+bug_classes: [parallel_collision]
+gate_that_caught_most: none
+phase_that_produced_most_bugs: implement
+one_line_learning: parallel zu Spec 016 entwickelt+gemergt — belegte Migr-Nummern 088/089 zuerst (016 musste auf 090/091 rebasen); bei parallelen Features Migr-Nummern früh koordinieren oder beim Merge prüfen
