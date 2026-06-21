@@ -38,3 +38,25 @@ audit_findings: []
 what_worked: 7 FRs bijektiv auf 6 Waves mapped; Consistency Gate Phase 4.5 PASS; Compliance-Tests als explizite Wave eingeplant
 one_line_learning: Refactoring-Voraussetzungen (Quality-Audit-Findings) hätten vor Planning stattfinden sollen — Plan baute auf unsauberem Ist-Stand auf
 ---
+---
+date: 2026-05-29
+phase: ofp046-markdown-brain-railway
+project: a1-office
+spec: /Users/rob/.claude/plans/rolle-du-bist-senior-giggly-backus.md
+result: pass
+revisions: 0
+audit_findings: 0
+finding_classes: [vague_tasks, missing_dependency]
+phase_that_produced_issues: [plan]
+one_line_learning: Planner-Live-Check der installierten Tool-Config (basic-memory Default-Embedding = bge-small-en-v1.5, englisch-only) deckte einen ziel-kritischen Task auf, den alle Eingabe-Docs uebersahen — Tool-Defaults immer gegen das Ziel verifizieren, nie annehmen.
+---
+date: 2026-06-04
+phase: crm-read-path-consolidation
+project: n3ural-platform
+spec: none
+result: pass-after-revision
+revisions: 1
+audit_findings: 3
+finding_classes: [missing_dependency, unverifiable_goal]
+phase_that_produced_issues: [plan]
+one_line_learning: Bei Tenant-kritischen Migrationen muss der Äquivalenz-Beweis (Wave 0) verschachtelte Embed-Child-Isolation + Pool-Rollen-Kontamination explizit als testbare STOP-Gates enthalten, nicht nur Top-Level-Row-Isolation.
