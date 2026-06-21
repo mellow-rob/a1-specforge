@@ -80,6 +80,16 @@ Pattern tags: `missing_import` | `missing_wiring` | `wave_ordering` | `vague_act
 
 Only write observations for real deviations — not for smooth execution. Quality over quantity.
 
+### 3c-bis. SQL/DB tasks — no mock-only tests
+If a task adds or changes a raw SQL query, DB function, or migration:
+- At least ONE real integration test per SQL function, run against the actual
+  schema (a test DB) — NOT a mock. Mocks hide `schema_flaw`, the most frequent
+  bug class in this corpus (green mocks shipped a production crash on a column
+  that did not exist).
+- Before marking done, run the new query once against the real DB and confirm
+  the columns it references actually exist (`\d <table>`). Do not trust a
+  self-report that "tests are green" — green mocks ≠ correct SQL.
+
 ### 3d. Verify "done when" condition
 Check the binary condition specified in the task. If it fails:
 1. Review what you built
@@ -88,6 +98,11 @@ Check the binary condition specified in the task. If it fails:
 4. If still failing after 2 attempts, mark as BLOCKED in STATUS.md and continue to next task
 
 ### 3e. Commit
+Before committing a wave that added/changed `.ts`/`.tsx` files (incl. tests):
+```bash
+npx tsc --noEmit   # must be green on changed + new files — vitest green ≠ tsc green
+```
+Then:
 ```bash
 git add -p  # or specific files
 git commit -m "feat(<phase>): <task name>"
