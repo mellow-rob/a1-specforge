@@ -25,8 +25,8 @@ Quick read-back to confirm the edit landed cleanly.
 
 ### Update Obsidian Vault — patterns.md (primary)
 ```bash
-VAULT="$HOME/Documents/Obsidian Vault"
-PATTERNS="$VAULT/areas/a1-learnings/patterns.md"
+VAULT="$HOME/N3URAL-Vault"
+PATTERNS="$VAULT/pattern/a1-learnings/patterns.md"
 ```
 
 Update `patterns.md`:
@@ -46,7 +46,7 @@ Also update `index.md` — set "Last synthesis" date in the intro block.
 ### Update local cache
 ```bash
 cat > ~/.claude/skills/_shared/learnings-index.md << EOF
-# Learning Index (cache — canonical is Obsidian Vault areas/a1-learnings/patterns.md)
+# Learning Index (cache — canonical is Obsidian Vault pattern/a1-learnings/patterns.md)
 
 Last synthesis: $(date +%Y-%m-%d)
 Applied: <count> | Skipped: <count> | Monitoring: <count>
@@ -100,6 +100,6 @@ EOF
 
 **To Vault:**
 Append the same entry to:
-`~/Documents/Obsidian Vault/areas/a1-learnings/a1-evolve.md`
+`~/N3URAL-Vault/pattern/a1-learnings/a1-evolve.md`
 
 A run with no issues is still useful data — write the entry.

@@ -6,14 +6,14 @@ Gather all learning data from all sources.
 
 ### 1a. Read from Obsidian Vault (primary — the brain)
 ```bash
-VAULT="$HOME/Documents/Obsidian Vault"
-ls "$VAULT/areas/a1-learnings/"
+VAULT="$HOME/N3URAL-Vault"
+ls "$VAULT/pattern/a1-learnings/"
 ```
 
 Read in this order:
-1. `$VAULT/areas/a1-learnings/index.md` — overview, entry counts, last synthesis date
-2. `$VAULT/areas/a1-learnings/patterns.md` — existing pattern history (avoid re-proposing already-applied fixes)
-3. Per-skill files: `a1-execute.md`, `a1-plan.md`, `a1-new-feature.md`, `a1-fix.md`, etc.
+1. `$VAULT/pattern/a1-learnings/index.md` — overview, entry counts, last synthesis date
+2. `$VAULT/pattern/a1-learnings/patterns.md` — existing pattern history (avoid re-proposing already-applied fixes)
+3. Per-skill files: `a1-execute.md`, `a1-plan.md`, `a1-new-feature.md`, `a1-fix.md`, `a1-analyze.md`, etc.
 
 Extract from each entry:
 - Date and project (follow `[[projects/<slug>]]` wikilinks for context if needed)
@@ -34,7 +34,7 @@ find ~/code -path "*/.a1/phases/*/observations.jsonl" 2>/dev/null | head -30
 Parse JSONL for granular pattern data not yet summarized in retros.
 
 ### 1d. Check last synthesis date
-From `$VAULT/areas/a1-learnings/patterns.md` frontmatter `updated:` field.
+From `$VAULT/pattern/a1-learnings/patterns.md` frontmatter `updated:` field.
 Only process entries newer than that date to avoid double-counting.
 
 ### 1e. Summarize what was collected
