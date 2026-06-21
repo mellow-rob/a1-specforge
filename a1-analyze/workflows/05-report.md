@@ -114,11 +114,16 @@ orchestrators.
   scope for this skill to do diff-reports — for spec-vs-implementation drift
   use `a1-reconcile`.
 
-## Retro (mandatory, every run)
+## Retro (MANDATORY, every run — this closes the self-learning loop)
 
-After every run — pass or fail — write one structured entry. Takes 2 minutes. Do not skip.
+After every run — pass, partial, or fail — write one structured entry **before you
+tell the user the analysis is done**. Takes ~2 minutes. This is not optional and
+not "if there's time" — without it `a1-evolve` is blind and the skills stop
+improving. The whole point of a1-analyze feeding implementation is that what we
+learn here gets carried into future builds; the Retro is how that crosses over.
 
-**To local cache:**
+### Step 1 — Append to the local cache (create the file if missing)
+
 ```bash
 cat >> ~/.claude/skills/a1-analyze/_learning.md <<'EOF'
 ---
@@ -126,14 +131,56 @@ date: <YYYY-MM-DD>
 task: <short description of analyzed project + focus>
 project: <project-slug>
 result: <pass|fail|partial>
-issues: [<relevant tags: agent-timeout, empty-findings, contract-violation, dispatch-error, vault-path-issue, ...>]
-what_worked: <one sentence — e.g. "parallel dispatch of 3 agents completed in one turn">
-one_line_learning: <what would have prevented the main issue, or "no issues">
+focus: <general|security|architecture|quality|onboarding>
+findings_total: <N>
+findings_blocker: <N>
+issue_classes: [<from: missing_coverage, arch_drift_found, quality_finding_actionable, simplification_opportunity, security_vuln, duplicate_critical_logic, agent_timeout, empty_findings, contract_violation, dispatch_error, vault_path_issue>]
+simplify_lane: <ran|skipped>
+security_lane: <ran|skipped>
+what_worked: <one sentence — e.g. "parallel dispatch of 4 lanes completed in one turn">
+one_line_learning: <what a future implementation should carry forward, or "no issues">
 EOF
 ```
 
-**To Vault:**
-Append the same entry to:
-`~/Documents/Obsidian Vault/areas/a1-learnings/a1-analyze.md`
+The `issue_classes` tags are shared with `patterns.md` clustering. Use them
+consistently — `simplification_opportunity` and `security_vuln` come from the two
+new always-on lanes and are exactly the signal we want to feed forward into builds.
 
-A run with no issues is still useful data — write the entry.
+### Step 2 — Append the SAME entry to the Vault (canonical source)
+
+Canonical path — the learnings live under `pattern/`. An older
+`~/Documents/Obsidian Vault/areas/a1-learnings/` path is still referenced by some
+other a1 skills and is being migrated away from; do NOT write there from
+a1-analyze. Use:
+
+```
+~/N3URAL-Vault/pattern/a1-learnings/a1-analyze.md
+```
+
+The `_learning.md` in the skill is a fast-access cache; the Vault file is canonical.
+A run with no issues is still useful data — write the entry with
+`findings_total: 0` and `one_line_learning: no issues`.
+
+### Step 3 — Threshold check (hands off to a1-evolve)
+
+Count entries written **since the last a1-evolve synthesis**, not the lifetime
+total — otherwise the cache's historical count keeps re-tripping "multiple of 5"
+on every run. The synthesis watermark is the `updated:` date in the Vault
+`patterns.md` (the same date a1-evolve uses for de-duplication):
+
+```bash
+PATTERNS=~/N3URAL-Vault/pattern/a1-learnings/patterns.md
+LAST_SYNTH=$(grep -m1 '^updated:' "$PATTERNS" 2>/dev/null | sed 's/updated:[[:space:]]*//')
+# Count a1-analyze cache entries dated after the last synthesis:
+NEW_COUNT=$(awk -v cutoff="$LAST_SYNTH" '
+  /^date:/ { d=$2; if (cutoff=="" || d > cutoff) c++ }
+  END { print c+0 }' ~/.claude/skills/a1-analyze/_learning.md 2>/dev/null || echo 0)
+```
+
+If `$NEW_COUNT` is ≥ 5, tell the user (German):
+> "≥5 neue a1-analyze-Learnings seit der letzten Synthese (Vault
+> `pattern/a1-learnings/`). `a1-evolve` ausführen, um Patterns auszuwerten?"
+
+`a1-evolve` reads `pattern/a1-learnings/a1-analyze.md` alongside the other skills'
+learnings and proposes concrete improvements. Do not run it automatically — the
+user decides.

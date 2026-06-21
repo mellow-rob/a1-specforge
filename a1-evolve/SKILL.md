@@ -3,7 +3,7 @@ name: a1-evolve
 description: >
   Self-optimization engine for the a1 skill set. Reads accumulated observations
   (`.a1/phases/*/observations.jsonl`) and per-skill _learning.md files plus the
-  Obsidian Vault `areas/a1-learnings/*.md`, clusters recurring patterns, scores
+  Obsidian Vault `pattern/a1-learnings/*.md`, clusters recurring patterns, scores
   by impact (frequency × severity), and proposes concrete diff-level
   improvements to agent files and SKILL.md / workflow files. Four phases:
   Collect → Cluster → Propose → Apply (with user confirmation per diff).
