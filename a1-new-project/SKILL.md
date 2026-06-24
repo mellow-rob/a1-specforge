@@ -120,8 +120,12 @@ Default vault root: `~/N3URAL-Vault/`. Override via `A1_VAULT_ROOT` for testing.
   confirmation (outward-facing action — always confirm).
 - **Never proceed past Phase 2 until the user confirms the scope.** This is the
   one phase where extra clarification is cheap and being wrong is expensive.
-- **Never skip the checkpoint between features in Phase 5.** The checkpoint is
-  what keeps the loop resumable and the context window healthy.
+- **Never skip the checkpoint *save* between features in Phase 5.** Running
+  `checkpoint` (which persists state across all memory layers) is mandatory —
+  it is what makes the loop resumable. The subsequent `/clear` is user-driven
+  and optional: on a healthy context the user may continue in-session; on a
+  heavy context they `/clear` and re-trigger the skill, which resumes from
+  `.a1/features-backlog.md`. The save is required, the clear is a choice.
 - **Never hold loop progress in context only.** Feature status lives in
   `.a1/features-backlog.md`. On re-entry, trust the file, not memory.
 - **Never split features too coarse or too fine.** One feature ≈ one

@@ -51,18 +51,32 @@ and stop the loop — do not silently skip to the next feature.
 
 ### 4. Checkpoint (MANDATORY — do not skip)
 
-Invoke the `checkpoint` skill (refresh mode) to:
-- persist session state across all memory layers (project MEMORY.md, Vault,
-  cloud brain), and
-- **free the context window** ("content frei machen") before the next feature.
-
-This is the heart of the loop: a clean context per feature prevents drift and
-keeps each `a1-new-feature` run sharp. Skipping it is tagged `checkpoint_skipped`
+Invoke the `checkpoint` skill (refresh mode) to persist session state across all
+memory layers (project MEMORY.md, Vault, cloud brain) and prepare to free the
+context window before the next feature. Skipping it is tagged `checkpoint_skipped`
 in the retro.
 
-After checkpoint, the context is fresh. Re-entry hits the "Loop invariant"
-section above, reads the backlog, and picks the next `pending` feature
-automatically. State carried forward = the backlog file only.
+**Know how checkpoint actually ends the context.** The `checkpoint` skill does
+NOT clear the context itself — it saves everything, then instructs the user to
+type `/clear`. So the boundary between features is a real handoff, not a silent
+auto-continue:
+
+1. Run `checkpoint` → it saves state and prints a clear instruction + the resume
+   pointer.
+2. **Surface the resume pointer to the user explicitly**, e.g.:
+   ```
+   Feature <N> ✓ — State gespeichert. Tippe /clear, dann sag "a1-new-project
+   weiter" (oder starte a1-new-project neu) — der Loop liest .a1/features-backlog.md
+   und macht mit Feature <N+1> weiter. Nichts geht verloren; der Stand steht im File.
+   ```
+3. On the next (fresh-context) invocation, the SKILL.md routing table sees a
+   backlog with non-`done` features and re-enters here at the Loop invariant.
+
+This is why the loop is **resumable, not unattended**: state carried forward =
+the backlog file only. If the user prefers to keep going in the SAME context
+without `/clear` (smaller projects, healthy context budget), that is allowed —
+still run checkpoint to save state, just skip the `/clear` step and continue
+straight to the next feature. The hard requirement is the *save*, not the clear.
 
 ## Resume after a context reset
 

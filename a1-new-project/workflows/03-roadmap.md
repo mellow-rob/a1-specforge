@@ -4,15 +4,20 @@ Turn the confirmed scope into milestones, phases, and a `.a1/` phase scaffold by
 invoking the **a1-roadmap** skill internally. Do not re-implement roadmap logic
 here — reuse it.
 
-## Hand the scope in (no re-interview)
+## Hand the scope in — START a1-roadmap AT RESEARCH, not Discover
 
-`a1-roadmap`'s Phase 1 (Discover) is a vision interview. We already did a deeper
-Scope-Interview in Phase 2, so feed the scope forward and tell a1-roadmap to
-**skip its own discovery** and start from the confirmed scope:
+**Critical: a1-roadmap has NO skip-discovery flag.** Its Phase 1 (Discover) asks
+the same 5 vision questions we already asked — deeper — in Phase 2. If you invoke
+a1-roadmap normally, it will re-interview the user. We must NOT let that happen.
+
+So we do not run a1-roadmap's Discover. Instead, our confirmed `.a1/scope.md`
+**IS** a1-roadmap's Discover output. Enter a1-roadmap at **Phase 2 (Research)**
+with the scope already in hand:
 
 ```
-Invoke a1-roadmap in new-project mode with this pre-confirmed scope
-(from .a1/scope.md) as its Discover output — do NOT re-interview the user:
+Run the a1-roadmap pipeline starting at its Phase 2 (Research) — SKIP its
+Phase 1 (Discover) entirely. The Discover output is already produced and
+confirmed; use this verbatim as a1-roadmap's vision summary:
 
   Product: <name>
   Vision: <one sentence>
@@ -22,11 +27,14 @@ Invoke a1-roadmap in new-project mode with this pre-confirmed scope
   Non-Goals: <non-goals>
   Success: <success criterion>
 
-Proceed to a1-roadmap Research → Structure → Scaffold.
+Then continue a1-roadmap: Research (02) → Structure (03) → Scaffold (04).
 ```
 
-Read the scope from `.a1/scope.md` to build that brief, so this phase is correct
-even on re-entry after a context reset.
+Build that brief by reading `.a1/scope.md` (not from context), so Phase 3 is
+correct even on re-entry after a context reset. If at any point a1-roadmap
+starts asking the user the vision questions again, that is a bug in this
+hand-off — stop, do not let the user be double-interviewed, and tag the retro
+`roadmap_handoff_failed`.
 
 ## What a1-roadmap produces
 
