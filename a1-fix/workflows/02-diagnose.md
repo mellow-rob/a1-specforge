@@ -40,6 +40,15 @@ Use the `Task` tool to spawn Falk (`~/.claude/agents/a1-falk-fault-finder.md`) w
 > 2. Follow the stack trace if present — Glob/Grep, not full-file reads.
 > 3. Check git log of affected files in the suspected window
 >    (`related_deploy` as anchor).
+> 3b. **Sibling-site sweep (root vs. symptom).** Once you locate the broken
+>     site, grep for sibling sites that do the same job: other write paths
+>     (`INSERT INTO <table>`, `create<Entity>`, `update<Entity>`), other
+>     consumers of the same route/field, the read/JOIN that loads it, the
+>     detail renderer. A bug that shows up on ONE record/screen is often a
+>     class: the fix belongs at the shared root, not the instance. If the
+>     symptom is "data is wrong on this invoice/page", confirm whether the
+>     other creation/render paths have the same gap BEFORE recommending a
+>     one-spot fix. Name the full set of affected sites in the diagnosis.
 > 4. Formulate a hypothesis with:
 >    - **Root Cause** (one statement of what is actually broken)
 >    - **Evidence** (file:line references, log excerpts, commit hashes)

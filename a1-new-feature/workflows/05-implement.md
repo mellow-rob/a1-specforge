@@ -107,6 +107,33 @@ the agent's concrete claims against reality — cheaply:
 If a claim doesn't hold, the wave is NOT done — send it back with the specific gap. This
 gate has caught real defects (empty dashboards, missing nav, false green) every time it ran.
 
+**Gate 0.5 — Surface coverage (every touched field/concept must be wired EVERYWHERE)**
+
+The most expensive bug class is a feature that's built in ONE place but consumed in
+several: a new DB field set by one writer but read by none, written via the dashboard
+path but not the API/MCP path, saved in a modal but never shown in the detail view.
+Symptom: "I can set X but don't see it" / "works from the dashboard but the MCP-created
+record is wrong". Cause: the wave touched a field/concept at one surface and the others
+silently kept the old behavior.
+
+Before the wave is `done`, for **each new or changed DB column / entity field / domain
+concept** in this wave, grep the codebase and confirm it's handled at ALL of these
+surfaces (skip the ones that genuinely don't apply, but say so):
+
+- **All write paths** — there is rarely only one. `grep -rn "INSERT INTO <table>\|update<Entity>\|create<Entity>"` across `app/`, `lib/`, `packages/`. A CRM often has 4+ invoice-create paths (web form, "from hours", office-API adapter, MCP). New business logic (bill-through, validation, defaults) must live in EVERY one, ideally via a shared helper, not copy-paste.
+- **Read path / JOIN** — if the field lives on a related table, the `SELECT`/JOIN that loads the entity must include it (`SELECT pr.*` is fine; an explicit column list silently drops it).
+- **Detail / list render** — a field you can set but not see = half-built. Check the detail component and any table column.
+- **API response shape** — new fetch consumers must read the real envelope key (`{ items }` for lists vs `{ data }` for single records — don't guess, grep the route's `return NextResponse.json(...)`).
+- **Sync / mirror logic** — if the concept is mirrored to another row (twin/shadow/denormalized copy), the sync must carry ALL relevant fields, not just the ones added first.
+
+Cheap method: `grep -rn "<new_field>" app/ lib/ packages/ components/` and eyeball whether
+every hit-site and every sibling site (other writers, the renderer) is consistent. If a
+surface is missing, the wave is NOT done.
+
+**Anti-pattern this prevents (symptom-fix loop):** when the SAME defect shows up on a
+second record/screen, do NOT patch the instance — `grep` for the root surface and fix all
+sites at once. Three identical data-corrections in a row means you skipped this gate.
+
 **Gate 1 — Build**
 
 Run the project-specific build command (in CLAUDE.md, e.g. `npm run build`).
